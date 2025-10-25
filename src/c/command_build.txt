@@ -1,0 +1,12 @@
+riscv32-unknown-elf-gcc -c -march=rv32im -o boot.o boot.S
+riscv32-unknown-elf-gcc -c -march=rv32im -o main.o main.c
+riscv32-unknown-elf-gcc -c -march=rv32im -o ram_init.o ram_init.c
+
+riscv32-unknown-elf-gcc -Os -march=rv32im -ffreestanding -nostdlib -o program.elf -Wl,-Bstatic,-T,sections.lds,-Map,program.map,--strip-debug boot.o ram_init.o main.o -lgcc
+riscv32-unknown-elf-objdump -D program.elf > program.elf.objdump
+
+riscv32-unknown-elf-objcopy -O binary program.elf program.bin
+
+//bin2coe -i boot.bin -o boot.coe -w 32 // A potential fix if there's a problem -> use --big-endian tag.
+
+xxd -i program.bin > program.h

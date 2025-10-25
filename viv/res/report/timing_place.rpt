@@ -1,0 +1,54 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
+| Date         : Fri Oct 24 19:05:22 2025
+| Host         : Abid running 64-bit major release  (build 9200)
+| Command      : report_timing -file D:/Abidul_Qohar/Github/WS_picorv32/logical/viv/res/report/timing_place.rpt
+| Design       : picorv32_system
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+| Design State : Fully Placed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Report
+
+Slack:                    inf
+  Source:                 ram/rd_addr_reg[1]_rep__17/C
+                            (rising edge-triggered cell FDRE)
+  Destination:            cpu/picorv32_core/reg_out_reg[4]/D
+  Path Group:             (none)
+  Path Type:              Max at Slow Process Corner
+  Data Path Delay:        13.695ns  (logic 2.252ns (16.444%)  route 11.443ns (83.556%))
+  Logic Levels:           11  (FDRE=1 LUT5=2 LUT6=5 MUXF7=2 MUXF8=1)
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y37         FDRE                         0.000     0.000 r  ram/rd_addr_reg[1]_rep__17/C
+    SLICE_X59Y37         FDRE (Prop_fdre_C_Q)         0.456     0.456 r  ram/rd_addr_reg[1]_rep__17/Q
+                         net (fo=64, estimated)       3.144     3.600    ram/rd_addr_reg[1]_rep__17_n_0
+    SLICE_X4Y66          LUT6 (Prop_lut6_I2_O)        0.124     3.724 r  ram/mem_rdata_q[12]_i_76/O
+                         net (fo=1, routed)           0.000     3.724    ram/mem_rdata_q[12]_i_76_n_0
+    SLICE_X4Y66          MUXF7 (Prop_muxf7_I1_O)      0.245     3.969 r  ram/mem_rdata_q_reg[12]_i_35/O
+                         net (fo=1, routed)           0.000     3.969    ram/mem_rdata_q_reg[12]_i_35_n_0
+    SLICE_X4Y66          MUXF8 (Prop_muxf8_I0_O)      0.104     4.073 r  ram/mem_rdata_q_reg[12]_i_15/O
+                         net (fo=1, estimated)        1.477     5.550    ram/mem_rdata_q_reg[12]_i_15_n_0
+    SLICE_X14Y59         LUT6 (Prop_lut6_I0_O)        0.316     5.866 r  ram/mem_rdata_q[12]_i_8/O
+                         net (fo=1, routed)           0.000     5.866    ram/mem_rdata_q[12]_i_8_n_0
+    SLICE_X14Y59         MUXF7 (Prop_muxf7_I1_O)      0.214     6.080 r  ram/mem_rdata_q_reg[12]_i_5/O
+                         net (fo=1, estimated)        2.138     8.218    ram/mem_rdata_q_reg[12]_i_5_n_0
+    SLICE_X51Y45         LUT5 (Prop_lut5_I2_O)        0.297     8.515 r  ram/mem_rdata_q[12]_i_3/O
+                         net (fo=1, estimated)        1.188     9.703    rom/s1_RDATA[10]
+    SLICE_X49Y51         LUT5 (Prop_lut5_I0_O)        0.124     9.827 r  rom/mem_rdata_q[12]_i_2/O
+                         net (fo=3, estimated)        1.313    11.140    rom/m0_RDATA[10]
+    SLICE_X47Y56         LUT6 (Prop_lut6_I0_O)        0.124    11.264 r  rom/reg_out[4]_i_5/O
+                         net (fo=1, estimated)        0.998    12.262    rom/reg_out[4]_i_5_n_0
+    SLICE_X47Y56         LUT6 (Prop_lut6_I0_O)        0.124    12.386 r  rom/reg_out[4]_i_2/O
+                         net (fo=1, estimated)        1.185    13.571    cpu/picorv32_core/reg_out_reg[4]_0
+    SLICE_X52Y56         LUT6 (Prop_lut6_I0_O)        0.124    13.695 r  cpu/picorv32_core/reg_out[4]_i_1/O
+                         net (fo=1, routed)           0.000    13.695    cpu/picorv32_core/reg_out[4]
+    SLICE_X52Y56         FDRE                                         r  cpu/picorv32_core/reg_out_reg[4]/D
+  -------------------------------------------------------------------    -------------------
+
+
+
+

@@ -1,0 +1,8 @@
+`include "rtl/picorv32.v"
+`include "rtl/axi_rom.v"
+`include "rtl/axi_ram.v"
+// `include "rtl/axi4_lite_interconnect_m1s2.v"
+`include "rtl/axi4_lite_interconnect_m1s3.v"
+`include "rtl/axi4_lite_slave.v"
+`include "rtl/gpio/gpio.v"
+`include "rtl/gpio/axi4_lite_gpio_wrapper.v"
