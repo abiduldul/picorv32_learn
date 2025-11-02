@@ -4,7 +4,7 @@ OBJCOPY		= riscv-none-elf-objcopy
 SIZE		= riscv-none-elf-size
 HEXDUMP		= hexdump
 XXD			= xxd
-MACH		= rv32im_zicsr
+MACH		= rv32i_zicsr
 MABI		= ilp32
 CFLAGS		= -O0 -g -c --specs=nosys.specs -Wall -march=$(MACH)
 LDFLAFGS	= -O0 -g -nostartfiles --specs=nosys.specs -march=$(MACH) -mabi=$(MABI) -Wl,-T,sections.lds,-Map,program.map

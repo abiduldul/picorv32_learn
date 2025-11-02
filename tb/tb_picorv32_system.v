@@ -41,6 +41,7 @@ module tb_picorv32_system();
 
     always @(posedge trap) begin
         $display("cycle count = %d", cycle_count);
+        #100;
         $finish;
     end
     // always @(posedge clk) begin

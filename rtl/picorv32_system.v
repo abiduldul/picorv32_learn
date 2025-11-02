@@ -94,7 +94,8 @@ module picorv32_system (
 
     /* master */
     picorv32_axi #(
-        .STACKADDR(32'h00001000)
+        .STACKADDR(32'h00001000),
+        .ENABLE_FAST_MUL(1'b0)
     ) cpu (
         // .clk          (clk_slow),
         .clk          (clk),
