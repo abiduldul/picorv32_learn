@@ -129,7 +129,7 @@
 .PHONY: sim clean wave ass build flash
 
 # default top module
-TOP         ?= picorv32_system
+TOP         ?= picorv32_soc
 
 # define tools #
 IVERILOG    = iverilog
@@ -152,7 +152,7 @@ ROM_HEX     = $(SRC)/hex
 INC         = $(RTL)/include.vh
 
 # source files #
-DSG         = $(INC) $(RTL)/$(TOP).v $(TB)/tb_$(TOP).v
+DSG         = $(INC) $(RTL)/picorv32/$(TOP).v $(TB)/tb_$(TOP).v
 OUT         = $(SIM)/tb_$(TOP).vvp
 VCD         = $(SIM)/tb_$(TOP).vcd
 
@@ -234,8 +234,8 @@ clean:
 	-$(RM) $(OUT)
 	-$(RM) $(SIM)/*.vcd
 	-$(RM) $(LOG)/*
-	-$(RM) $(ROM_HEX)/*.hex
-	-$(RM) temp.o temp.elf temp.bin
+	-$(RM) clockInfo.txt
+	-$(RM) dfx_runtime.txt
 	-$(RMDIR) .Xil
 	-$(RMDIR) viv/out # Hapus direktori log jika kosong
 	-$(RMDIR) $(ROM_HEX) # Hapus direktori hex jika kosong
