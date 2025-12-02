@@ -62,7 +62,7 @@ module picorv32_pcpi_bitrev (
             
             // 2. pcpi_ready: Apakah operasi multi-cycle selesai?
             //    Tidak, ini bukan operasi multi-cycle.
-            pcpi_ready = 1'b0;
+            pcpi_ready = 1'b1;
             
             // 3. pcpi_wr: Apakah kita mau menulis hasil ke register file?
             //    Ya. Kita aktifkan sinyal 'write'.
@@ -81,10 +81,4 @@ module picorv32_pcpi_bitrev (
             pcpi_rd = 32'b0;
         end
     end
-
-    // Catatan: Port 'clk' dan 'resetn' tidak digunakan 
-    // dalam implementasi kombinasional sederhana ini, 
-    // tetapi *wajib* ada di definisi modul untuk 
-    // operasi multi-cycle (Latihan 3) nanti.
-
 endmodule

@@ -39,26 +39,24 @@ int main() {
     volatile uint32_t actual = 0;
 
     // Calculate using C
-    // expected = software_bitrev(test_val);
+    expected = software_bitrev(test_val);
 
     // Calculate using YOUR Custom Hardware
     actual = hardware_bitrev(test_val);
 
-    asm volatile ("csrwi 0x780, 1");
-
     // Check result
-    // if (actual == expected) {
-    //     // SUCCESS!
-    //     // If you are simulating, look for this infinite loop.
-    //     // actual and expected match.
-    //     asm volatile ("csrwi 0x780, 1");
-    //     // while(1); 
-    // } else {
-    //     // FAIL
-    //     // The hardware calculation was wrong.
-    //     asm volatile ("csrwi 0x780, 0");
-    //     // while(1);
-    // }
+    if (actual == expected) {
+        // SUCCESS!
+        // If you are simulating, look for this infinite loop.
+        // actual and expected match.
+        asm volatile ("csrwi 0x780, 1");
+        // while(1); 
+    } else {
+        // FAIL
+        // The hardware calculation was wrong.
+        asm volatile ("csrwi 0x780, 0");
+        // while(1);
+    }
 
     return 0;
 }

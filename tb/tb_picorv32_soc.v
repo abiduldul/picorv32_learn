@@ -44,19 +44,4 @@ module tb_picorv32_soc();
         #100;
         $finish;
     end
-    // always @(posedge clk) begin
-    //     if (dut.m0_ARVALID && dut.m0_ARREADY) begin
-    //         $display("Read Request: Addr = 0x%h", dut.m0_ARADDR);
-    //     end
-    //     if (dut.m0_RVALID && dut.m0_RREADY) begin
-    //         $display("Read Data: Data = 0x%h", dut.m0_RDATA);
-    //     end
-    //     if (dut.m0_WVALID && dut.m0_AWREADY) begin
-    //         $display("Write Request: Addr = 0x%h", dut.m0_AWADDR);
-    //     end
-    //     if (dut.m0_WVALID && dut.m0_WREADY) begin
-    //         $display("Write Data: Data = 0x%h, Strb = 0x%h", dut.m0_WDATA, dut.m0_WSTRB);
-    //     end
-    // end
-
 endmodule

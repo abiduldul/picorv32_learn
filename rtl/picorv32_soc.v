@@ -98,7 +98,8 @@ module picorv32_soc (
         .ENABLE_FAST_MUL(1'b0),
         .ENABLE_MUL(1'b0),
         .ENABLE_DIV(1'b0),
-        .ENABLE_BITREV(1'b0)
+        .ENABLE_BITREV(1'b1),
+        .ENABLE_GCD(1'b0)
     ) cpu (
         // .clk          (clk_slow),
         .clk          (clk),

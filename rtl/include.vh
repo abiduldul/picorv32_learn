@@ -4,6 +4,7 @@
 `include "rtl/picorv32/picorv32_pcpi_fastmul.v"
 `include "rtl/picorv32/picorv32_pcpi_div.v"
 `include "rtl/picorv32/picorv32_pcpi_bitrev.v"
+`include "rtl/picorv32/picorv32_pcpi_gcd.v"
 `include "rtl/picorv32/picorv32_axi.v"
 `include "rtl/picorv32/picorv32_axi_adapter.v"
 

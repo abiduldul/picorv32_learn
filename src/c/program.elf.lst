@@ -3,27 +3,27 @@ program.elf:     file format elf32-littleriscv
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000001a0  00000000  00000000  00001000  2**2
+  0 .text         00000230  00000000  00000000  00001000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .bss          00000000  10000000  000001a0  00002000  2**0
+  1 .bss          00000000  10000000  00000230  00002000  2**0
                   ALLOC
-  2 .sbss         00000000  000001a0  000001a0  000011a0  2**0
+  2 .sbss         00000000  00000230  00000230  00001230  2**0
                   CONTENTS
-  3 .riscv.attributes 00000037  00000000  00000000  000011a0  2**0
+  3 .riscv.attributes 00000037  00000000  00000000  00001230  2**0
                   CONTENTS, READONLY
-  4 .comment      00000033  00000000  00000000  000011d7  2**0
+  4 .comment      00000033  00000000  00000000  00001267  2**0
                   CONTENTS, READONLY
-  5 .debug_line   0000027a  00000000  00000000  0000120a  2**0
+  5 .debug_line   000002fc  00000000  00000000  0000129a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  6 .debug_line_str 00000120  00000000  00000000  00001484  2**0
+  6 .debug_line_str 00000120  00000000  00000000  00001596  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  7 .debug_info   000001ff  00000000  00000000  000015a4  2**0
+  7 .debug_info   0000027b  00000000  00000000  000016b6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  8 .debug_abbrev 0000010d  00000000  00000000  000017a3  2**0
+  8 .debug_abbrev 00000178  00000000  00000000  00001931  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
-  9 .debug_aranges 00000060  00000000  00000000  000018b0  2**3
+  9 .debug_aranges 00000060  00000000  00000000  00001ab0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 10 .debug_str    0000013c  00000000  00000000  00001910  2**0
+ 10 .debug_str    00000177  00000000  00000000  00001b10  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 11 .debug_frame  00000070  00000000  00000000  00001a4c  2**2
+ 11 .debug_frame  000000c0  00000000  00000000  00001c88  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS

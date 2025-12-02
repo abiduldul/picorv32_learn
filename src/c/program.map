@@ -5,13 +5,13 @@ Memory Configuration
 
 Name             Origin             Length             Attributes
 ROM              0x00000000         0x01000000         xrw
-RAM              0x10000000         0x00000100         xrw
+RAM              0x10000000         0x00000400         xrw
 *default*        0x00000000         0xffffffff
 
 Linker script and memory map
 
 
-.text           0x00000000      0x1a0
+.text           0x00000000      0x230
  *(.init)
  .init          0x00000000       0x8c boot.o
                 0x00000000                start
@@ -20,21 +20,23 @@ Linker script and memory map
  .text          0x0000008c        0x0 boot.o
  .text          0x0000008c       0x98 ram_init.o
                 0x0000008c                ram_init
- .text          0x00000124       0x78 main.o
-                0x00000124                main
+ .text          0x00000124      0x108 main.o
+                0x00000124                software_bitrev
+                0x000001a0                hardware_bitrev
+                0x000001d8                main
  *(.text.*)
  *(.rodata)
  *(.rodata.*)
-                0x000001a0                        . = ALIGN (0x8)
- *fill*         0x0000019c        0x4 
-                0x000001a0                        _etext = .
-                0x000001a0                        _la_data = LOADADDR (.data)
+                0x00000230                        . = ALIGN (0x8)
+ *fill*         0x0000022c        0x4 
+                0x00000230                        _etext = .
+                0x00000230                        _la_data = LOADADDR (.data)
 
-.rela.dyn       0x000001a0        0x0
- .rela.init     0x000001a0        0x0 boot.o
- .rela.text     0x000001a0        0x0 boot.o
+.rela.dyn       0x00000230        0x0
+ .rela.init     0x00000230        0x0 boot.o
+ .rela.text     0x00000230        0x0 boot.o
 
-.data           0x10000000        0x0 load address 0x000001a0
+.data           0x10000000        0x0 load address 0x00000230
                 0x10000000                        _sdata = .
  *(.data)
  .data          0x10000000        0x0 boot.o
@@ -42,12 +44,12 @@ Linker script and memory map
  .data          0x10000000        0x0 main.o
  *(.data.*)
 
-.sdata          0x10000000        0x0 load address 0x000001a0
+.sdata          0x10000000        0x0 load address 0x00000230
  *(.sdata*)
                 0x10000800                        //__global_pointer$ = (. + 0x800)
                 0x10000000                        _edata = .
 
-.bss            0x10000000        0x0 load address 0x000001a0
+.bss            0x10000000        0x0 load address 0x00000230
                 0x10000000                        _sbss = .
  *(.bss)
  .bss           0x10000000        0x0 boot.o
@@ -58,17 +60,17 @@ Linker script and memory map
                 0x10000000                        . = ALIGN (0x8)
                 0x10000000                        _ebss = .
 
-.sbss           0x000001a0        0x0
-                0x000001a0                        _sbss_start = .
+.sbss           0x00000230        0x0
+                0x00000230                        _sbss_start = .
  *(.sbss*)
  *(.sbss.*)
-                0x000001a0                        . = ALIGN (0x8)
-                0x000001a0                        _sbss_end = .
-                0x000001a0                        . = ALIGN (0x8)
-                0x000001a0                        _end = .
+                0x00000230                        . = ALIGN (0x8)
+                0x00000230                        _sbss_end = .
+                0x00000230                        . = ALIGN (0x8)
+                0x00000230                        _end = .
                 0x00000080                        _stack_size = 0x80
-                0x10000100                        _stack_top = (ORIGIN (RAM) + LENGTH (RAM))
-                0x10000080                        _stack_bottom = (_stack_top - _stack_size)
+                0x10000400                        _stack_top = (ORIGIN (RAM) + LENGTH (RAM))
+                0x10000380                        _stack_bottom = (_stack_top - _stack_size)
                 0x00000001                        ASSERT ((_end <= _stack_bottom), Error: Heap collides with stack)
 LOAD boot.o
 LOAD ram_init.o
@@ -106,10 +108,10 @@ OUTPUT(program.elf elf32-littleriscv)
  .note.GNU-stack
                 0x00000000        0x0 main.o
 
-.debug_line     0x00000000      0x27a
+.debug_line     0x00000000      0x2fc
  .debug_line    0x00000000      0x10a boot.o
  .debug_line    0x0000010a       0xcc ram_init.o
- .debug_line    0x000001d6       0xa4 main.o
+ .debug_line    0x000001d6      0x126 main.o
 
 .debug_line_str
                 0x00000000      0x120
@@ -119,17 +121,17 @@ OUTPUT(program.elf elf32-littleriscv)
  .debug_line_str
                 0x00000120      0x158 ram_init.o
  .debug_line_str
-                0x00000120       0x75 main.o
+                0x00000120      0x14c main.o
 
-.debug_info     0x00000000      0x1ff
+.debug_info     0x00000000      0x27b
  .debug_info    0x00000000       0x25 boot.o
  .debug_info    0x00000025      0x106 ram_init.o
- .debug_info    0x0000012b       0xd4 main.o
+ .debug_info    0x0000012b      0x150 main.o
 
-.debug_abbrev   0x00000000      0x10d
+.debug_abbrev   0x00000000      0x178
  .debug_abbrev  0x00000000       0x14 boot.o
  .debug_abbrev  0x00000014       0x83 ram_init.o
- .debug_abbrev  0x00000097       0x76 main.o
+ .debug_abbrev  0x00000097       0xe1 main.o
 
 .debug_aranges  0x00000000       0x60
  .debug_aranges
@@ -139,12 +141,12 @@ OUTPUT(program.elf elf32-littleriscv)
  .debug_aranges
                 0x00000040       0x20 main.o
 
-.debug_str      0x00000000      0x13c
- .debug_str     0x00000000      0x13c boot.o
+.debug_str      0x00000000      0x177
+ .debug_str     0x00000000      0x177 boot.o
                                  0x45 (size before relaxing)
- .debug_str     0x0000013c      0x124 ram_init.o
- .debug_str     0x0000013c       0xeb main.o
+ .debug_str     0x00000177      0x124 ram_init.o
+ .debug_str     0x00000177      0x135 main.o
 
-.debug_frame    0x00000000       0x70
+.debug_frame    0x00000000       0xc0
  .debug_frame   0x00000000       0x38 ram_init.o
- .debug_frame   0x00000038       0x38 main.o
+ .debug_frame   0x00000038       0x88 main.o

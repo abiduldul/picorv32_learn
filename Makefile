@@ -152,7 +152,7 @@ ROM_HEX     = $(SRC)/hex
 INC         = $(RTL)/include.vh
 
 # source files #
-DSG         = $(INC) $(RTL)/picorv32/$(TOP).v $(TB)/tb_$(TOP).v
+DSG         = $(INC) $(RTL)/$(TOP).v $(TB)/tb_$(TOP).v
 OUT         = $(SIM)/tb_$(TOP).vvp
 VCD         = $(SIM)/tb_$(TOP).vcd
 
