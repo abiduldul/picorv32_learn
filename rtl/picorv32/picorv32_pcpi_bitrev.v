@@ -40,9 +40,10 @@ module picorv32_pcpi_bitrev (
     // Kita gunakan 'reg' di sini agar bisa di-assign di dalam 'always @(*)'
     reg [31:0] reversed_val;
 
+    integer i;
     always @(*) begin
         // Logika pembalikan bit kombinasional
-        for (integer i = 0; i < 32; i = i + 1) begin
+        for (i = 0; i < 32; i = i + 1) begin
             reversed_val[i] = pcpi_rs1[31 - i];
         end
     end

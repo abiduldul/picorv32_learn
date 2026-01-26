@@ -2,11 +2,9 @@ module picorv32_soc (
     input  wire clk,
     input  wire rst_n,
     output wire trap,
-    input  [15:0]                   sw,
-    output  [15:0]                   LED
+    // input  [15:0]                   sw,
+    output                    LED
 );
-    reg         clk_slow = 0;
-    reg [26:0]  clk_divider = 0;
     
     // always @(posedge clk) begin
     //     if (clk_divider >= 100_000_000 / 2 - 1) begin
@@ -94,16 +92,16 @@ module picorv32_soc (
 
     /* master */
     picorv32_axi #(
-        .STACKADDR(32'h00001000),
+        .STACKADDR(32'h10003f00),
         .ENABLE_FAST_MUL(1'b0),
-        .ENABLE_MUL(1'b0),
-        .ENABLE_DIV(1'b0),
-        .ENABLE_BITREV(1'b1),
+        .ENABLE_MUL(1'b1),
+        .ENABLE_DIV(1'b1),
+        .ENABLE_BITREV(1'b0),
         .ENABLE_GCD(1'b0)
     ) cpu (
         // .clk          (clk_slow),
         .clk          (clk),
-        .resetn       (!rst_n),
+        .resetn       (rst_n),
         .trap           (trap),
         .mem_axi_awvalid (m0_AWVALID), .mem_axi_awready (m0_AWREADY), .mem_axi_awaddr (m0_AWADDR),
         .mem_axi_wvalid (m0_WVALID), .mem_axi_wready (m0_WREADY), .mem_axi_wdata (m0_WDATA), .mem_axi_wstrb (m0_WSTRB),
@@ -117,7 +115,7 @@ module picorv32_soc (
     axi_rom rom (
         // .clk          (clk_slow),
         .clk          (clk),
-        .rst_n        (!rst_n),
+        .rst_n        (rst_n),
 
         .axi_arvalid (s0_ARVALID), .axi_arready (s0_ARREADY), .axi_araddr (s0_ARADDR),
         .axi_rvalid (s0_RVALID), .axi_rready (s0_RREADY), .axi_rdata (s0_RDATA)
@@ -127,7 +125,7 @@ module picorv32_soc (
     axi_ram ram (
         // .clk          (clk_slow),
         .clk          (clk),
-        .rst_n        (!rst_n),
+        .rst_n        (rst_n),
 
         .axi_awvalid (s1_AWVALID), .axi_awready (s1_AWREADY), .axi_awaddr (s1_AWADDR),
         .axi_wvalid (s1_WVALID), .axi_wready (s1_WREADY), .axi_wdata (s1_WDATA), .axi_wstrb (s1_WSTRB),
@@ -136,32 +134,46 @@ module picorv32_soc (
         .axi_arvalid (s1_ARVALID), .axi_arready (s1_ARREADY), .axi_araddr (s1_ARADDR),
         .axi_rvalid (s1_RVALID), .axi_rready (s1_RREADY), .axi_rdata (s1_RDATA)
     );
+    
+    /* slave 2: RAM_OUTPUT */
+    axi_ram ram_output (
+        // .clk          (clk_slow),
+        .clk          (clk),
+        .rst_n        (rst_n),
 
-    /* slave 2: GPIO */
-    axi4_lite_gpio_wrapper #(
-        .ADDR_WIDTH(32), .DATA_WIDTH(32)
-    ) gpio (
-        // .iCLK(clk_slow), .iRST(!rst_n),
-        .iCLK(clk), .iRST(!rst_n),
-        
-        /* write */
-        .s_AWVALID(s2_AWVALID), .s_AWPROT(3'b0), .s_AWADDR(s2_AWADDR), .s_AWREADY(s2_AWREADY),
-        .s_WVALID(s2_WVALID), .s_WDATA(s2_WDATA), .s_WSTRB(s2_WSTRB), .s_WREADY(s2_WREADY),
-        .s_BREADY(s2_BREADY), .s_BVALID(s2_BVALID), .s_BRESP(s2_BRESP),
+        .axi_awvalid (s2_AWVALID), .axi_awready (s2_AWREADY), .axi_awaddr (s2_AWADDR),
+        .axi_wvalid (s2_WVALID), .axi_wready (s2_WREADY), .axi_wdata (s2_WDATA), .axi_wstrb (s2_WSTRB),
+        .axi_bvalid (s2_BVALID), .axi_bready (s2_BREADY),
 
-        /* read */
-        .s_ARVALID(s2_ARVALID), .s_ARPROT(3'b0), .s_ARADDR(s2_ARADDR), .s_ARREADY(s2_ARREADY),
-        .s_RREADY(s2_RREADY), .s_RVALID(s2_RVALID), .s_RRESP(s2_RRESP), .s_RDATA(s2_RDATA),
-        //.iSW(sw),
-        .oLED(LED)
+        .axi_arvalid (s2_ARVALID), .axi_arready (s2_ARREADY), .axi_araddr (s2_ARADDR),
+        .axi_rvalid (s2_RVALID), .axi_rready (s2_RREADY), .axi_rdata (s2_RDATA)
     );
+
+    // /* slave 2: GPIO */
+    // axi4_lite_gpio_wrapper #(
+    //     .ADDR_WIDTH(32), .DATA_WIDTH(32)
+    // ) gpio (
+    //     // .iCLK(clk_slow), .iRST(rst_n),
+    //     .iCLK(clk), .iRST(rst_n),
+        
+    //     /* write */
+    //     .s_AWVALID(s2_AWVALID), .s_AWPROT(3'b0), .s_AWADDR(s2_AWADDR), .s_AWREADY(s2_AWREADY),
+    //     .s_WVALID(s2_WVALID), .s_WDATA(s2_WDATA), .s_WSTRB(s2_WSTRB), .s_WREADY(s2_WREADY),
+    //     .s_BREADY(s2_BREADY), .s_BVALID(s2_BVALID), .s_BRESP(s2_BRESP),
+
+    //     /* read */
+    //     .s_ARVALID(s2_ARVALID), .s_ARPROT(3'b0), .s_ARADDR(s2_ARADDR), .s_ARREADY(s2_ARREADY),
+    //     .s_RREADY(s2_RREADY), .s_RVALID(s2_RVALID), .s_RRESP(s2_RRESP), .s_RDATA(s2_RDATA),
+    //     //.iSW(sw),
+    //     .oLED(LED)
+    // );
 
     axi4_lite_interconnect_m1s3 #(
         .LOW_ADDR0(32'h0000_0000), .HIGH_ADDR0(32'h0000_FFFF),
-        .LOW_ADDR1(32'h1000_0000), .HIGH_ADDR1(32'h1000_3FFF),
-        .LOW_ADDR2(32'h0002_0000), .HIGH_ADDR2(32'h0002_0000)
+        .LOW_ADDR1(32'h1000_0000), .HIGH_ADDR1(32'h1000_FFFF),
+        .LOW_ADDR2(32'h0002_0000), .HIGH_ADDR2(32'h0002_FFFF)
     ) interconnect (
-        .iCLK(clk), .iRST(!rst_n),
+        .iCLK(clk), .iRST(rst_n),
         
         /* master 0 signals */
         .m0_AWVALID(m0_AWVALID), .m0_AWADDR(m0_AWADDR), .m0_AWREADY(m0_AWREADY),

@@ -1,5 +1,4 @@
 `include "rtl/picorv32/picorv32.v"
-// `include "rtl/picorv32/picorv32_soc.v"
 `include "rtl/picorv32/picorv32_pcpi_mul.v"
 `include "rtl/picorv32/picorv32_pcpi_fastmul.v"
 `include "rtl/picorv32/picorv32_pcpi_div.v"
@@ -11,7 +10,8 @@
 `include "rtl/axi4_lite_interconnect_m1s3.v"
 `include "rtl/axi4_lite_slave.v"
 
+// `include "rtl/picorv32_soc.v"
 `include "rtl/axi_rom.v"
 `include "rtl/axi_ram.v"
-`include "rtl/gpio/gpio.v"
-`include "rtl/gpio/axi4_lite_gpio_wrapper.v"
+// `include "rtl/gpio/gpio.v"
+// `include "rtl/gpio/axi4_lite_gpio_wrapper.v"
