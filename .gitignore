@@ -1,0 +1,6 @@
+sim/*.vcd
+sim/*.vvp
+src/c/*.o
+src/c/program*
+.Xil
+.vscode
