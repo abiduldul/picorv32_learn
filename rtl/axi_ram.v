@@ -19,7 +19,8 @@ module axi_ram (
     output [31:0] axi_rdata
 );
 
-    reg [31:0] mem [0:262143]; //1M 
+    // reg [31:0] mem [0:262143]; //1M 
+    reg [31:0] mem [0:1023]; 
     integer i;
 
     // initial begin

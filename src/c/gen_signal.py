@@ -1,29 +1,44 @@
-# HOW TO USE:
-# python3 gen_signal.py > input_data.h
-
 import math
 
+# KONFIGURASI
+AUDIO_LEN = 1024   # Kelipatan 64 terdekat dari 1000
 N = 64
-AMPLITUDE_BASS = 1000
-AMPLITUDE_TREBLE = 500
+AMPLITUDE = 1000
 
-# Kita pakai frekuensi yang "pas" dengan Bin FFT agar angkanya cantik
-# Bin 2 = 2 putaran per window
-# Bin 20 = 20 putaran per window
-FREQ_BASS = 2 
-FREQ_TREBLE = 20
+# Definisi 3 Frekuensi (Sesuai Bin FFT)
+# Bin 2 = Bass
+# Bin 10 = Mid
+# Bin 24 = Treble
+FREQ_BASS = 2
+FREQ_MID = 10
+FREQ_TREBLE = 24
 
-print(f"// Input Signal: Bass (Bin {FREQ_BASS}, Amp {AMPLITUDE_BASS}) + Treble (Bin {FREQ_TREBLE}, Amp {AMPLITUDE_TREBLE})")
-print(f"const int32_t mixed_input[{N}] = {{")
+print(f"// 3-Tone Signal: Bass -> Mid -> Treble (Total {AUDIO_LEN})")
+print(f"#define AUDIO_LEN {AUDIO_LEN}")
+print(f"const int32_t audio_data[{AUDIO_LEN}] = {{")
 
 values = []
-for i in range(N):
-    # Rumus: A1*cos(2*pi*f1*t) + A2*cos(2*pi*f2*t)
-    theta_bass = 2 * math.pi * FREQ_BASS * i / N
-    theta_treble = 2 * math.pi * FREQ_TREBLE * i / N
+for i in range(AUDIO_LEN):
+    val = 0
     
-    val = (AMPLITUDE_BASS * math.cos(theta_bass)) + (AMPLITUDE_TREBLE * math.cos(theta_treble))
+    # BAGI MENJADI 3 ZONA
+    if i < 341:
+        # Zona 1: BASS
+        theta = 2 * math.pi * FREQ_BASS * i / N
+        val = AMPLITUDE * math.cos(theta)
+    elif i < 682:
+        # Zona 2: MID
+        theta = 2 * math.pi * FREQ_MID * i / N
+        val = AMPLITUDE * math.cos(theta)
+    else:
+        # Zona 3: TREBLE
+        theta = 2 * math.pi * FREQ_TREBLE * i / N
+        val = AMPLITUDE * math.cos(theta)
+        
     values.append(str(int(val)))
 
-print("    " + ", ".join(values))
+# Format output agar rapi (10 angka per baris)
+for i in range(0, len(values), 10):
+    print("    " + ", ".join(values[i:i+10]) + ",")
+
 print("};")

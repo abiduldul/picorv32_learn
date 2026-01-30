@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (win64) Build 6140274 Thu May 22 00:12:29 MDT 2025
-| Date         : Tue Jan 13 14:00:59 2026
+| Date         : Fri Jan 30 14:26:15 2026
 | Host         : Abid running 64-bit major release  (build 9200)
 | Command      : report_timing -file D:/Abidul_Qohar/Github/picorv32_learn/viv/res/report/timing_place.rpt
 | Design       : picorv32_soc
@@ -13,40 +13,42 @@ Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanc
 Timing Report
 
 Slack:                    inf
-  Source:                 ram/rd_addr_reg[1]_rep__16/C
+  Source:                 ram/rd_addr_reg[1]/C
                             (rising edge-triggered cell FDRE)
-  Destination:            cpu/picorv32_core/reg_out_reg[5]/D
+  Destination:            cpu/picorv32_core/reg_out_reg[7]/D
   Path Group:             (none)
   Path Type:              Max at Slow Process Corner
-  Data Path Delay:        12.282ns  (logic 2.252ns (18.336%)  route 10.030ns (81.664%))
-  Logic Levels:           11  (FDRE=1 LUT5=1 LUT6=6 MUXF7=2 MUXF8=1)
+  Data Path Delay:        15.240ns  (logic 2.330ns (15.289%)  route 12.910ns (84.711%))
+  Logic Levels:           12  (FDRE=1 LUT6=7 MUXF7=2 MUXF8=2)
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
-    SLICE_X61Y14         FDRE                         0.000     0.000 r  ram/rd_addr_reg[1]_rep__16/C
-    SLICE_X61Y14         FDRE (Prop_fdre_C_Q)         0.456     0.456 r  ram/rd_addr_reg[1]_rep__16/Q
-                         net (fo=64, estimated)       1.816     2.272    ram/rd_addr_reg[1]_rep__16_n_0
-    SLICE_X33Y2          LUT6 (Prop_lut6_I2_O)        0.124     2.396 r  ram/mem_rdata_q[13]_i_77/O
-                         net (fo=1, routed)           0.000     2.396    ram/mem_rdata_q[13]_i_77_n_0
-    SLICE_X33Y2          MUXF7 (Prop_muxf7_I1_O)      0.245     2.641 r  ram/mem_rdata_q_reg[13]_i_36/O
-                         net (fo=1, routed)           0.000     2.641    ram/mem_rdata_q_reg[13]_i_36_n_0
-    SLICE_X33Y2          MUXF8 (Prop_muxf8_I0_O)      0.104     2.745 r  ram/mem_rdata_q_reg[13]_i_16/O
-                         net (fo=1, estimated)        1.582     4.327    ram/mem_rdata_q_reg[13]_i_16_n_0
-    SLICE_X54Y5          LUT6 (Prop_lut6_I0_O)        0.316     4.643 r  ram/mem_rdata_q[13]_i_9/O
-                         net (fo=1, routed)           0.000     4.643    ram/mem_rdata_q[13]_i_9_n_0
-    SLICE_X54Y5          MUXF7 (Prop_muxf7_I1_O)      0.214     4.857 r  ram/mem_rdata_q_reg[13]_i_6/O
-                         net (fo=1, estimated)        1.158     6.015    ram/mem_rdata_q_reg[13]_i_6_n_0
-    SLICE_X53Y14         LUT5 (Prop_lut5_I2_O)        0.297     6.312 r  ram/mem_rdata_q[13]_i_3/O
-                         net (fo=1, estimated)        2.166     8.478    rom/s1_RDATA[13]
-    SLICE_X96Y25         LUT6 (Prop_lut6_I0_O)        0.124     8.602 r  rom/mem_rdata_q[13]_i_2/O
-                         net (fo=4, estimated)        1.323     9.925    rom/m0_RDATA[13]
-    SLICE_X103Y30        LUT6 (Prop_lut6_I0_O)        0.124    10.049 r  rom/reg_out[5]_i_4/O
-                         net (fo=1, estimated)        0.835    10.884    rom/reg_out[5]_i_4_n_0
-    SLICE_X104Y30        LUT6 (Prop_lut6_I0_O)        0.124    11.008 r  rom/reg_out[5]_i_2/O
-                         net (fo=1, estimated)        1.150    12.158    cpu/picorv32_core/reg_out_reg[5]_0
-    SLICE_X98Y34         LUT6 (Prop_lut6_I0_O)        0.124    12.282 r  cpu/picorv32_core/reg_out[5]_i_1/O
-                         net (fo=1, routed)           0.000    12.282    cpu/picorv32_core/reg_out[5]
-    SLICE_X98Y34         FDRE                                         r  cpu/picorv32_core/reg_out_reg[5]/D
+    SLICE_X59Y51         FDRE                         0.000     0.000 r  ram/rd_addr_reg[1]/C
+    SLICE_X59Y51         FDRE (Prop_fdre_C_Q)         0.456     0.456 r  ram/rd_addr_reg[1]/Q
+                         net (fo=8192, estimated)     4.223     4.679    ram/rd_addr_reg_n_0_[1]
+    SLICE_X111Y147       LUT6 (Prop_lut6_I2_O)        0.124     4.803 r  ram/mem_inferred__2015/mem_rdata_q[23]_i_340/O
+                         net (fo=1, routed)           0.000     4.803    ram/mem_inferred__2015/mem_rdata_q[23]_i_340_n_0
+    SLICE_X111Y147       MUXF7 (Prop_muxf7_I1_O)      0.217     5.020 r  ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_154/O
+                         net (fo=1, routed)           0.000     5.020    ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_154_n_0
+    SLICE_X111Y147       MUXF8 (Prop_muxf8_I1_O)      0.094     5.114 r  ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_61/O
+                         net (fo=1, estimated)        1.667     6.781    ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_61_n_0
+    SLICE_X95Y136        LUT6 (Prop_lut6_I0_O)        0.316     7.097 r  ram/mem_inferred__2015/mem_rdata_q[23]_i_24/O
+                         net (fo=1, routed)           0.000     7.097    ram/mem_inferred__2015/mem_rdata_q[23]_i_24_n_0
+    SLICE_X95Y136        MUXF7 (Prop_muxf7_I1_O)      0.217     7.314 r  ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_12/O
+                         net (fo=1, routed)           0.000     7.314    ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_12_n_0
+    SLICE_X95Y136        MUXF8 (Prop_muxf8_I1_O)      0.094     7.408 r  ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_6/O
+                         net (fo=1, estimated)        3.015    10.423    ram/mem_inferred__2015/mem_rdata_q_reg[23]_i_6_n_0
+    SLICE_X86Y60         LUT6 (Prop_lut6_I1_O)        0.316    10.739 r  ram/mem_inferred__2015/mem_rdata_q[23]_i_2/O
+                         net (fo=1, estimated)        0.974    11.713    rom/s1_RDATA[21]
+    SLICE_X86Y60         LUT6 (Prop_lut6_I0_O)        0.124    11.837 r  rom/mem_rdata_q[23]_i_1/O
+                         net (fo=6, estimated)        1.399    13.236    rom/m0_RDATA[21]
+    SLICE_X95Y62         LUT6 (Prop_lut6_I0_O)        0.124    13.360 f  rom/reg_out[31]_i_12/O
+                         net (fo=2, estimated)        1.022    14.382    rom/reg_out[31]_i_12_n_0
+    SLICE_X95Y62         LUT6 (Prop_lut6_I0_O)        0.124    14.506 f  rom/reg_out[7]_i_5/O
+                         net (fo=1, estimated)        0.610    15.116    cpu/picorv32_core/pcpi_mul/reg_out_reg[7]_1
+    SLICE_X98Y57         LUT6 (Prop_lut6_I4_O)        0.124    15.240 r  cpu/picorv32_core/pcpi_mul/reg_out[7]_i_1/O
+                         net (fo=1, routed)           0.000    15.240    cpu/picorv32_core/reg_out[7]
+    SLICE_X98Y57         FDRE                                         r  cpu/picorv32_core/reg_out_reg[7]/D
   -------------------------------------------------------------------    -------------------
 
 

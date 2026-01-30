@@ -33,7 +33,7 @@ program.bin:program.elf
 	$(OBJCOPY) -O binary $^ $@
 
 program.h:program.bin
-	$(XXD) -i $^ > $@
+	# $(XXD) -i $^ > $@
 
 program.hex: program.bin
 	$(HEXDUMP) -ve '1/4 "%08x\n"' $^ > $@
@@ -41,6 +41,7 @@ program.hex: program.bin
 program.v: program.hex
 	# python3 hex_to_verilog.py $^
 	python3 update_axi_rom.py $^ ../../rtl/axi_rom.v
+	python3 hex_to_coe.py $^ program.coe
 	
 size:program.elf
 	$(SIZE) $^

@@ -6,7 +6,7 @@ module axi4_lite_gpio_wrapper #(
     input                               iRST,
 
     input       [15:0]                  iSW,
-    output      [15:0]                  oLED,
+    output                        oLED,
     
     /* write address channel */
     input                               s_AWVALID,

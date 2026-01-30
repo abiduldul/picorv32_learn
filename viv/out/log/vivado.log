@@ -3,8 +3,8 @@
 # SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Tue Jan 13 14:02:07 2026
-# Process ID         : 6336
+# Start of session at: Fri Jan 30 14:30:45 2026
+# Process ID         : 19948
 # Current directory  : D:/Abidul_Qohar/Github/picorv32_learn
 # Command line       : vivado.exe -mode batch -source viv/tcl/flash.tcl -log viv/out/log/vivado.log -journal viv/out/log/vivado.jou
 # Log file           : D:/Abidul_Qohar/Github/picorv32_learn/viv/out/log/vivado.log
@@ -17,9 +17,9 @@
 # CPU Physical cores : 4
 # CPU Logical cores  : 8
 # Host memory        : 8254 MB
-# Swap memory        : 13998 MB
-# Total Virtual      : 22253 MB
-# Available Virtual  : 4536 MB
+# Swap memory        : 12563 MB
+# Total Virtual      : 20818 MB
+# Available Virtual  : 8829 MB
 #-----------------------------------------------------------
 source viv/tcl/flash.tcl
 # source viv/tcl/set_variables.tcl
@@ -44,7 +44,7 @@ INFO: dir_origin is  D:/Abidul_Qohar/Github/picorv32_learn
 # puts "INFO: path_file_bitstream is  $path_file_bitstream"
 INFO: path_file_bitstream is  D:/Abidul_Qohar/Github/picorv32_learn/viv/res/zynq7000_picorv32.bit
 # open_hw_manager
-open_hw_manager: Time (s): cpu = 00:00:08 ; elapsed = 00:00:06 . Memory (MB): peak = 498.473 ; gain = 215.777
+open_hw_manager: Time (s): cpu = 00:00:16 ; elapsed = 00:00:11 . Memory (MB): peak = 500.008 ; gain = 216.023
 # connect_hw_server
 INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
 INFO: [Labtools 27-2222] Launching hw_server...
@@ -68,11 +68,11 @@ INFO: [Labtools 27-2221] Launch Output:
 
 
 
-connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:07 . Memory (MB): peak = 502.410 ; gain = 3.938
+connect_hw_server: Time (s): cpu = 00:00:00 ; elapsed = 00:00:10 . Memory (MB): peak = 503.969 ; gain = 3.961
 # current_hw_target
 # open_hw_target
 INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210241727074
 # set_property PROGRAM.FILE $path_file_bitstream [current_hw_device]
 # program_hw_devices [current_hw_device]
 INFO: [Labtools 27-3164] End of startup status: HIGH
-INFO: [Common 17-206] Exiting Vivado at Tue Jan 13 14:02:26 2026...
+INFO: [Common 17-206] Exiting Vivado at Fri Jan 30 14:31:15 2026...
