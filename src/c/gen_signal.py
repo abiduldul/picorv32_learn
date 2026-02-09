@@ -1,3 +1,4 @@
+# python3 gen_signal.py > audio_data.h
 import math
 
 # KONFIGURASI

@@ -1,7 +1,7 @@
 ENTRY(start)
 MEMORY {
-	ROM (rwx) : ORIGIN = 0x00000000, LENGTH = 16M,
-	RAM (rwx) : ORIGIN = 0x10000000, LENGTH = 8K
+	ROM (rwx) : ORIGIN = 0x00000000, LENGTH = 128K,
+	RAM (rwx) : ORIGIN = 0x10000000, LENGTH = 4K
 }
 
 SECTIONS {
@@ -17,7 +17,7 @@ SECTIONS {
 	} > ROM
 
 	_la_data = LOADADDR(.data);
-
+	
 	.data : {
 		_sdata = .;
 		*(.data)
@@ -55,5 +55,4 @@ SECTIONS {
 	_stack_bottom = _stack_top - _stack_size;
 
 	ASSERT(_end <= _stack_bottom, "Error: Heap collides with stack")
-
 }

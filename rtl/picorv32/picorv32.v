@@ -75,6 +75,7 @@ module picorv32 #(
 	parameter [ 0:0] ENABLE_PCPI = 0,
 	parameter [ 0:0] ENABLE_BITREV = 0,
 	parameter [ 0:0] ENABLE_GCD = 0,
+	parameter [ 0:0] ENABLE_FFT = 0,
 	parameter [ 0:0] ENABLE_MUL = 1,
 	parameter [ 0:0] ENABLE_FAST_MUL = 1,
 	parameter [ 0:0] ENABLE_DIV = 1,
@@ -168,7 +169,7 @@ module picorv32 #(
 	localparam integer regfile_size = (ENABLE_REGS_16_31 ? 32 : 16) + 4*ENABLE_IRQ*ENABLE_IRQ_QREGS;
 	localparam integer regindex_bits = (ENABLE_REGS_16_31 ? 5 : 4) + ENABLE_IRQ*ENABLE_IRQ_QREGS;
 
-	localparam WITH_PCPI = ENABLE_PCPI || ENABLE_MUL || ENABLE_FAST_MUL || ENABLE_DIV || ENABLE_BITREV || ENABLE_GCD;
+	localparam WITH_PCPI = ENABLE_PCPI || ENABLE_MUL || ENABLE_FAST_MUL || ENABLE_DIV || ENABLE_BITREV || ENABLE_GCD || ENABLE_FFT;
 
 	localparam [35:0] TRACE_BRANCH = {4'b 0001, 32'b 0};
 	localparam [35:0] TRACE_ADDR   = {4'b 0010, 32'b 0};
@@ -283,6 +284,11 @@ module picorv32 #(
 	wire        pcpi_gcd_wait;
 	wire        pcpi_gcd_ready;
 
+	wire        pcpi_fft_wr;
+	wire [31:0] pcpi_fft_rd;
+	wire        pcpi_fft_wait;
+	wire        pcpi_fft_ready;
+
 	generate if (ENABLE_FAST_MUL) begin
 		picorv32_pcpi_fast_mul pcpi_mul (
 			.clk       (clk            ),
@@ -376,11 +382,31 @@ module picorv32 #(
 		assign pcpi_gcd_ready = 0;
 	end endgenerate
 
+	generate if (ENABLE_FFT) begin
+		picorv32_pcpi_fft pcpi_fft (
+			.clk       (clk            ),
+			.resetn    (resetn         ),
+			.pcpi_valid(pcpi_valid     ),
+			.pcpi_insn (pcpi_insn      ),
+			.pcpi_rs1  (pcpi_rs1       ),
+			.pcpi_rs2  (pcpi_rs2       ),
+			.pcpi_wr   (pcpi_fft_wr    ),
+			.pcpi_rd   (pcpi_fft_rd    ),
+			.pcpi_wait (pcpi_fft_wait  ),
+			.pcpi_ready(pcpi_fft_ready )
+		);
+	end else begin
+		assign pcpi_fft_wr = 0;
+		assign pcpi_fft_rd = 32'bx;
+		assign pcpi_fft_wait = 0;
+		assign pcpi_fft_ready = 0;
+	end endgenerate
+
 	always @* begin
 		pcpi_int_wr = 0;
 		pcpi_int_rd = 32'bx;
-		pcpi_int_wait  = |{ENABLE_PCPI && pcpi_wait,  (ENABLE_MUL || ENABLE_FAST_MUL) && pcpi_mul_wait,  ENABLE_DIV && pcpi_div_wait, ENABLE_BITREV && pcpi_bitrev_wait, ENABLE_GCD && pcpi_gcd_wait};
-		pcpi_int_ready = |{ENABLE_PCPI && pcpi_ready, (ENABLE_MUL || ENABLE_FAST_MUL) && pcpi_mul_ready, ENABLE_DIV && pcpi_div_ready, ENABLE_BITREV && pcpi_bitrev_ready, ENABLE_GCD && pcpi_gcd_ready};
+		pcpi_int_wait  = |{ENABLE_PCPI && pcpi_wait,  (ENABLE_MUL || ENABLE_FAST_MUL) && pcpi_mul_wait,  ENABLE_DIV && pcpi_div_wait, ENABLE_BITREV && pcpi_bitrev_wait, ENABLE_GCD && pcpi_gcd_wait, ENABLE_FFT && pcpi_fft_wait};
+		pcpi_int_ready = |{ENABLE_PCPI && pcpi_ready, (ENABLE_MUL || ENABLE_FAST_MUL) && pcpi_mul_ready, ENABLE_DIV && pcpi_div_ready, ENABLE_BITREV && pcpi_bitrev_ready, ENABLE_GCD && pcpi_gcd_ready, ENABLE_FFT && pcpi_fft_ready};
 
 		(* parallel_case *)
 		case (1'b1)
@@ -403,6 +429,10 @@ module picorv32 #(
 			ENABLE_GCD && pcpi_gcd_ready: begin
 				pcpi_int_wr = pcpi_gcd_wr;
 				pcpi_int_rd = pcpi_gcd_rd;
+			end
+			ENABLE_FFT && pcpi_fft_ready: begin
+				pcpi_int_wr = pcpi_fft_wr;
+				pcpi_int_rd = pcpi_fft_rd;
 			end
 		endcase
 	end
