@@ -6,11 +6,12 @@ AUDIO_LEN = 1024   # Kelipatan 64 terdekat dari 1000
 N = 64
 AMPLITUDE = 1000
 
-# Definisi 3 Frekuensi (Sesuai Bin FFT)
-# Bin 2 = Bass
-# Bin 10 = Mid
-# Bin 24 = Treble
-FREQ_BASS = 2
+# Definisi 3 Frekuensi ( f = bin × (sample_rate / N))
+# Bin 2 = Bass --> f = 2 × (8000 / 64) = 250 Hz
+# Bin 10 = Mid --> f = 10 × (8000 / 64) = 1250 Hz
+# Bin 24 = Treble --> f = 24 × (8000 / 64) = 3000 Hz
+
+FREQ_BASS = 2 
 FREQ_MID = 10
 FREQ_TREBLE = 24
 

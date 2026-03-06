@@ -1,82 +1,48 @@
+`default_nettype none
+
 module picorv32_pcpi_fft (
-    input wire clk,
-    input wire resetn,
-    
-    // Interface PCPI dari PicoRV32
-    input wire        pcpi_valid,
-    input wire [31:0] pcpi_insn,
-    input wire [31:0] pcpi_rs1,
-    input wire [31:0] pcpi_rs2,
-    
-    output reg        pcpi_wr,
-    output reg [31:0] pcpi_rd,
-    output reg        pcpi_wait,
-    output reg        pcpi_ready
+    input  wire        clk,
+    input  wire        resetn,
+
+    // PCPI Interface (PicoRV32 standard)
+    input  wire        pcpi_valid,   // high when CPU issues an instruction
+    input  wire [31:0] pcpi_insn,    // full 32-bit instruction word
+    input  wire [31:0] pcpi_rs1,     // value of rs1 (multiplicand)
+    input  wire [31:0] pcpi_rs2,     // value of rs2 (multiplier)
+    output reg         pcpi_wr,      // high to write result back to rd
+    output reg  [31:0] pcpi_rd,      // result written to rd
+    output reg         pcpi_ready,   // pulse high when instruction is done
+    output reg         pcpi_wait     // held low — we never stall the CPU
 );
 
-    // Definisi Opcode Custom-0 (RISC-V Standard)
-    localparam [6:0] OPCODE_CUSTOM0 = 7'b0001011;
+    // -------------------------------------------------------------------------
+    // Instruction Decode
+    // -------------------------------------------------------------------------
+    wire [6:0] insn_opcode = pcpi_insn[6:0];
+    wire [2:0] insn_funct3 = pcpi_insn[14:12];
+    wire [6:0] insn_funct7 = pcpi_insn[31:25];
 
-    // --- Unpacking Data (Memecah 32-bit jadi dua 16-bit) ---
-    // Gunakan $signed agar Verilog tahu ini bilangan negatif/positif (Two's Complement)
-    wire signed [15:0] d_real = pcpi_rs1[31:16];
-    wire signed [15:0] d_imag = pcpi_rs1[15:0];
-    wire signed [15:0] t_cos  = pcpi_rs2[31:16];
-    wire signed [15:0] t_sin  = pcpi_rs2[15:0];
+    // custom-0 opcode = 7'b000_1011
+    localparam CUSTOM0_OPCODE = 7'b000_1011;
 
-    // --- The Math (Logic Matematika FFT) ---
-    // Rumus: 
-    // TR = (Real * Cos - Imag * Sin) >> 10
-    // TI = (Real * Sin + Imag * Cos) >> 10
-    
-    // Hasil sementara (32-bit karena perkalian 16x16)
-    wire signed [31:0] mul_rc = d_real * t_cos;
-    wire signed [31:0] mul_is = d_imag * t_sin;
-    wire signed [31:0] mul_rs = d_real * t_sin;
-    wire signed [31:0] mul_ic = d_imag * t_cos;
+    wire is_cmul = (insn_opcode == CUSTOM0_OPCODE) &&
+                   (insn_funct3 == 3'h0)           &&
+                   (insn_funct7 == 7'h00);
 
-    // 1. Hitung hasil mentah di 32-bit dulu
-    wire signed [31:0] raw_res_real = (mul_rc - mul_is) >>> 10;
-    wire signed [31:0] raw_res_imag = (mul_rs + mul_ic) >>> 10;
-    
-    reg signed [15:0] sat_res_real;
-    reg signed [15:0] sat_res_imag;
+    wire signed [31:0] operand_a = $signed(pcpi_rs1);
+    wire signed [31:0] operand_b = $signed(pcpi_rs2);
+    wire signed [31:0] product   = operand_a * operand_b;
 
-    // 2. Cek apakah hasil melebihi 16-bit?
-    always @(*) begin
-        // Saturasi Real
-        if (raw_res_real > 32767) 
-            sat_res_real = 32767;      // Mentok Positif
-        else if (raw_res_real < -32768) 
-            sat_res_real = -32768;     // Mentok Negatif
-        else 
-            sat_res_real = raw_res_real[15:0]; // Data Valid
-
-        // Saturasi Imag
-        if (raw_res_imag > 32767) 
-            sat_res_imag = 32767;
-        else if (raw_res_imag < -32768) 
-            sat_res_imag = -32768;
-        else 
-            sat_res_imag = raw_res_imag[15:0];
-    end
-
-    // --- PCPI Handshake Logic ---
     always @(posedge clk) begin
-        if (!resetn) begin
-            pcpi_wr <= 0;
-            pcpi_ready <= 0;
-            pcpi_wait <= 0;
-        end else begin
-            pcpi_wr <= 0;
-            pcpi_ready <= 0;
-            
-            if (pcpi_valid && pcpi_insn[6:0] == OPCODE_CUSTOM0) begin
-                // Gunakan hasil yang sudah disaturasi
-                pcpi_rd <= {sat_res_real, sat_res_imag}; 
-                pcpi_wr <= 1;
-                pcpi_ready <= 1;
-            end
+        pcpi_wr    <= 1'b0;
+        pcpi_ready <= 1'b0;
+        pcpi_wait  <= 1'b0;
+        pcpi_rd    <= 32'h0;
+
+        if (resetn && pcpi_valid && is_cmul) begin
+            pcpi_rd    <= product; 
+            pcpi_wr    <= 1'b1;     // write result back to rd
+            pcpi_ready <= 1'b1;     // tell CPU we are done
         end
     end
 

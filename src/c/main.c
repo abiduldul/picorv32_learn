@@ -16,7 +16,7 @@ void fft_core(int32_t *real, int32_t *imag, int inverse) {
             temp_i = imag[i]; imag[i] = imag[j]; imag[j] = temp_i;
         }
         k = FFT_SIZE >> 1;
-        while (k <= j) { j -= k; k >>= 1; }
+        while (k <= j && k > 0) { j -= k; k >>= 1; }
         j += k;
     }
 

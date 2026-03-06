@@ -93,12 +93,12 @@ module picorv32_soc (
     /* master */
     picorv32_axi #(
         .STACKADDR(32'h00001000),
-        .ENABLE_FAST_MUL(1'b1),
-        .ENABLE_MUL(1'b1),
+        .ENABLE_FAST_MUL(1'b0),
+        .ENABLE_MUL(1'b0),
         .ENABLE_DIV(1'b1),
         .ENABLE_BITREV(1'b0),
         .ENABLE_GCD(1'b0),
-        .ENABLE_FFT(1'b0)
+        .ENABLE_FFT(1'b1)
     ) cpu (
         // .clk          (clk_slow),
         .clk          (clk),
