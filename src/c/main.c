@@ -4,6 +4,28 @@
 
 #define MAGIC_ADDR 0x00020000
 
+// HARDWARE MACROS
+// No output — rs1=real_val, rs2=imag_val
+#define hw_bload(real_val, imag_val) \
+    __asm__ volatile ("bload %0, %1" \
+        : \
+        : "r"((int32_t)(real_val)), "r"((int32_t)(imag_val)) \
+        : "memory")
+
+// rd=tr_out(output), rs1=c_val, rs2=s_val
+#define hw_bfly(tr_out, c_val, s_val) \
+    __asm__ volatile ("bfly %0, %1, %2" \
+        : "=r"(tr_out) \
+        : "r"((int32_t)(c_val)), "r"((int32_t)(s_val)) \
+        : "memory")
+
+// rd=ti_out(output), no inputs
+#define hw_bget(ti_out) \
+    __asm__ volatile ("bget %0" \
+        : "=r"(ti_out) \
+        : \
+        : "memory")
+
 void fft_core(int32_t *real, int32_t *imag, int inverse) {
     int i, j, k;
     int32_t temp_r, temp_i;
@@ -20,78 +42,70 @@ void fft_core(int32_t *real, int32_t *imag, int inverse) {
         j += k;
     }
 
-    // 2. Butterfly
+    // 2. Butterfly (HARDWARE ACCELERATED)
     int L, m, step;
-    int32_t tr, ti; 
+    int32_t tr, ti;
     int16_t c, s;
 
     for (L = 2; L <= FFT_SIZE; L <<= 1) {
         m = L >> 1;
-        step = (FFT_SIZE / 2) / m; 
+        step = (FFT_SIZE / 2) / m;
         for (j = 0; j < m; j++) {
             int idx = j * step;
             c = CosTable[idx];
             s = SinTable[idx];
             for (i = j; i < FFT_SIZE; i += L) {
                 int pair = i + m;
+
                 if (inverse == 0) {
-                    tr = (real[pair] * c - imag[pair] * s) >> FIXED_SHIFT;
-                    ti = (real[pair] * s + imag[pair] * c) >> FIXED_SHIFT;
+                    // tr = (real[pair] * c - imag[pair] * s) >> FIXED_SHIFT;
+                    // ti = (real[pair] * s + imag[pair] * c) >> FIXED_SHIFT;
+                    
+                    // bload feeds real[pair] and imag[pair] to coprocessor
+                    hw_bload(real[pair], imag[pair]);
+                    hw_bfly(tr, c, s);
+                    hw_bget(ti);
                 } else {
-                    tr = (real[pair] * c + imag[pair] * s) >> FIXED_SHIFT;
-                    ti = (imag[pair] * c - real[pair] * s) >> FIXED_SHIFT;
+                    // tr = (real[pair] * c + imag[pair] * s) >> FIXED_SHIFT;
+                    // ti = (imag[pair] * c - real[pair] * s) >> FIXED_SHIFT;
+                    
+                    // bfly with -s computes:
+                    hw_bload(real[pair], imag[pair]);
+                    hw_bfly(tr, c, -s);
+                    hw_bget(ti);
                 }
+                // Writeback results
                 real[pair] = real[i] - tr;
                 imag[pair] = imag[i] - ti;
-                real[i] = real[i] + tr;
-                imag[i] = imag[i] + ti;
+                real[i]   += tr;
+                imag[i]   += ti;
             }
         }
     }
 
-    // 3. Scaling (IFFT Only)
+    // 3. Scaling (IFFT only)
     if (inverse) {
         for (i = 0; i < FFT_SIZE; i++) {
-            real[i] = real[i] >> LOG2_N; 
+            real[i] = real[i] >> LOG2_N;
             imag[i] = imag[i] >> LOG2_N;
         }
     }
 }
 
-// --- FUNGSI MATH: 3-BAND EQ ---
+// --- 3-BAND EQ ---
 void process_math_only(int32_t *chunk_real, int32_t *chunk_imag) {
-    
+
     // 1. FFT
     fft_core(chunk_real, chunk_imag, 0);
 
-    // 2. EQUALIZER (3 BANDS)
-    // Definisi Area Frekuensi (Simetris!)
-    // 0 - 4   : BASS
-    // 5 - 16  : MID
-    // 17 - 32 : TREBLE
-    // Dan cerminnya...
-    
+    // 2. Equalizer
     int32_t gain;
-
-    for(int i = 0; i < FFT_SIZE; i++) {
-        // Normalisasi index untuk simetri (mirroring)
-        // Jika i > 32 (setengah N), lihat cerminnya
+    for (int i = 0; i < FFT_SIZE; i++) {
         int idx_checked = (i > FFT_SIZE/2) ? (FFT_SIZE - i) : i;
+        if      (idx_checked <= 4)  gain = 2048; // BASS  2.0x
+        else if (idx_checked <= 16) gain = 512;  // MID   0.5x
+        else                        gain = 256;  // TREBLE 0.25x
 
-        if (idx_checked <= 4) {
-            // --- BASS AREA ---
-            gain = 2048; // Boost 2.0x
-        } 
-        else if (idx_checked <= 16) {
-            // --- MID AREA ---
-            gain = 512;  // Cut 0.5x
-        } 
-        else {
-            // --- TREBLE AREA ---
-            gain = 256;  // Cut 0.25x
-        }
-
-        // Apply Gain
         chunk_real[i] = (chunk_real[i] * gain) >> FIXED_SHIFT;
         chunk_imag[i] = (chunk_imag[i] * gain) >> FIXED_SHIFT;
     }
@@ -103,31 +117,22 @@ void process_math_only(int32_t *chunk_real, int32_t *chunk_imag) {
 int main() {
     volatile int32_t *output_stream = (volatile int32_t*) MAGIC_ADDR;
 
-    // Buffer System
     int32_t buffer_real[FFT_SIZE];
     int32_t buffer_imag[FFT_SIZE];
     int buffer_index = 0;
 
-    // MAIN LOOP
-    for (int i = 0; i < AUDIO_LEN; i++) { 
-        // 1. Fill Buffer
+    for (int i = 0; i < AUDIO_LEN; i++) {
         buffer_real[buffer_index] = audio_data[i];
         buffer_imag[buffer_index] = 0;
         buffer_index++;
 
-        // 2. Jika Penuh, Proses!
         if (buffer_index == FFT_SIZE) {
-            
-            // A. Lakukan Matematika (FFT -> EQ -> IFFT)
             process_math_only(buffer_real, buffer_imag);
-            
-            // B. Lakukan Printing DI SINI (Di dalam Main)
-            // Agar pointer output_stream bergerak linear
+
             for (int k = 0; k < FFT_SIZE; k++) {
                 *output_stream++ = buffer_real[k];
             }
-            
-            // Reset Index
+
             buffer_index = 0;
         }
     }

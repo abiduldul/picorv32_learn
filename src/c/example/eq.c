@@ -56,6 +56,7 @@ void fft_core(int32_t *real, int32_t *imag, int inverse) {
             imag[i] = imag[i] >> LOG2_N;
         }
     }
+//use return to output
 }
 
 // --- FUNGSI MATH: 3-BAND EQ ---

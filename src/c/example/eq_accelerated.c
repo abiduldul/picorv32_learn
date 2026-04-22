@@ -3,28 +3,29 @@
 #include "audio_data.h"
 
 #define MAGIC_ADDR 0x00020000
-// --- INLINE ASSEMBLY UNTUK CUSTOM INSTRUCTION ---
-// Fungsi ini memanggil Hardware PCPI yang kita buat
-static inline uint32_t fft_accel_cmd(uint32_t packed_data, uint32_t packed_twiddle) {
-    uint32_t result;
-    // .insn r (R-Type Instruction)
-    // Opcode: 0x0B (Custom-0)
-    // Func3: 0, Func7: 0
-    asm volatile (
-        ".insn r 0x0B, 0, 0, %0, %1, %2"
-        : "=r"(result)              // Output (%0)
-        : "r"(packed_data),         // Input 1 (%1)
-          "r"(packed_twiddle)       // Input 2 (%2)
-    );
-    return result;
-}
 
-// --- FFT CORE YANG DIMODIFIKASI ---
-void fft_core_accelerated(int32_t *real, int32_t *imag, int inverse) {
+// ==============================================================================
+// MAKRO HARDWARE: KOPROSESOR DSP STATEFUL (OPSI B)
+// ==============================================================================
+// hw_bsave       : Menyimpan (rs1 * rs2) ke dalam akumulator hardware 64-bit
+// hw_bsub_shift  : Mengembalikan ((akumulator - (rs1 * rs2)) >> FIXED_SHIFT)
+// hw_badd_shift  : Mengembalikan ((akumulator + (rs1 * rs2)) >> FIXED_SHIFT)
+
+#define hw_bsave(rs1, rs2) \
+    __asm__ volatile ("bsave %0, %1" : : "r"(rs1), "r"(rs2))
+
+#define hw_bsub_shift(rd, rs1, rs2) \
+    __asm__ volatile ("bsub_shift %0, %1, %2" : "=r"(rd) : "r"(rs1), "r"(rs2))
+
+#define hw_badd_shift(rd, rs1, rs2) \
+    __asm__ volatile ("badd_shift %0, %1, %2" : "=r"(rd) : "r"(rs1), "r"(rs2))
+// ==============================================================================
+
+void fft_core(int32_t *real, int32_t *imag, int inverse) {
     int i, j, k;
     int32_t temp_r, temp_i;
 
-    // Bit Reversal (Tetap Software - tidak berat)
+    // 1. Bit Reversal
     j = 0;
     for (i = 0; i < FFT_SIZE - 1; i++) {
         if (i < j) {
@@ -32,57 +33,47 @@ void fft_core_accelerated(int32_t *real, int32_t *imag, int inverse) {
             temp_i = imag[i]; imag[i] = imag[j]; imag[j] = temp_i;
         }
         k = FFT_SIZE >> 1;
-        while (k <= j) { j -= k; k >>= 1; }
+        while (k <= j && k > 0) { j -= k; k >>= 1; }
         j += k;
     }
 
-    // Butterfly Loop (BAGIAN INI KITA PERCEPAT!)
+    // 2. Butterfly (HARDWARE ACCELERATED)
     int L, m, step;
     int32_t tr, ti; 
-    
-    // Variabel packing
-    int16_t c_short, s_short, r_pair_short, i_pair_short;
-    uint32_t packed_data, packed_twiddle, packed_result;
-    int16_t res_tr_short, res_ti_short;
+    int16_t c, s;
 
     for (L = 2; L <= FFT_SIZE; L <<= 1) {
         m = L >> 1;
         step = (FFT_SIZE / 2) / m; 
         for (j = 0; j < m; j++) {
             int idx = j * step;
-            
-            // Siapkan Twiddle Factor (Cos/Sin)
-            // Pack ke dalam 32-bit: [Cos | Sin]
-            c_short = (int16_t)CosTable[idx];
-            s_short = (int16_t)SinTable[idx];
-            
-            // Logic IFFT (Inverse) merubah tanda Sin
-            if (inverse) s_short = -s_short;
-
-            packed_twiddle = ((uint32_t)c_short << 16) | ((uint32_t)s_short & 0xFFFF);
-
+            c = CosTable[idx];
+            s = SinTable[idx];
             for (i = j; i < FFT_SIZE; i += L) {
                 int pair = i + m;
-
-                // Siapkan Data Pair
-                // Pack ke dalam 32-bit: [Real | Imag]
-                r_pair_short = (int16_t)real[pair];
-                i_pair_short = (int16_t)imag[pair];
-                packed_data = ((uint32_t)r_pair_short << 16) | ((uint32_t)i_pair_short & 0xFFFF);
-
-                // --- PANGGIL HARDWARE ACCELERATOR! ---
-                // "Hardware, tolong hitung (R*C - I*S) dan (R*S + I*C)"
-                packed_result = fft_accel_cmd(packed_data, packed_twiddle);
-
-                // Unpack Hasil dari Hardware
-                // [ Result Real | Result Imag ]
-                res_tr_short = (int16_t)(packed_result >> 16);
-                res_ti_short = (int16_t)(packed_result & 0xFFFF);
-
-                tr = (int32_t)res_tr_short;
-                ti = (int32_t)res_ti_short;
                 
-                // Update Array (Operasi penjumlahan sederhana tetap di software)
+                if (inverse == 0) {
+                    // --- FORWARD FFT ---
+                    // tr = (real[pair] * c - imag[pair] * s) >> FIXED_SHIFT;
+                    hw_bsave(real[pair], c);
+                    hw_bsub_shift(tr, imag[pair], s);
+                    
+                    // ti = (real[pair] * s + imag[pair] * c) >> FIXED_SHIFT;
+                    hw_bsave(real[pair], s);
+                    hw_badd_shift(ti, imag[pair], c);
+                } else {
+                    // --- INVERSE FFT (IFFT) ---
+                    // tr = (real[pair] * c + imag[pair] * s) >> FIXED_SHIFT;
+                    hw_bsave(real[pair], c);
+                    hw_badd_shift(tr, imag[pair], s);
+                    
+                    // ti = (imag[pair] * c - real[pair] * s) >> FIXED_SHIFT;
+                    // Perhatikan urutannya: Simpan (imag*c) ke hardware, lalu kurangi dengan (real*s)
+                    hw_bsave(imag[pair], c);
+                    hw_bsub_shift(ti, real[pair], s);
+                }
+                
+                // Aplikasikan hasil
                 real[pair] = real[i] - tr;
                 imag[pair] = imag[i] - ti;
                 real[i] = real[i] + tr;
@@ -91,7 +82,7 @@ void fft_core_accelerated(int32_t *real, int32_t *imag, int inverse) {
         }
     }
 
-    // Scaling (IFFT Only)
+    // 3. Scaling (IFFT Only)
     if (inverse) {
         for (i = 0; i < FFT_SIZE; i++) {
             real[i] = real[i] >> LOG2_N; 
@@ -104,42 +95,32 @@ void fft_core_accelerated(int32_t *real, int32_t *imag, int inverse) {
 void process_math_only(int32_t *chunk_real, int32_t *chunk_imag) {
     
     // 1. FFT
-    fft_core_accelerated(chunk_real, chunk_imag, 0);
+    fft_core(chunk_real, chunk_imag, 0);
 
     // 2. EQUALIZER (3 BANDS)
-    // Definisi Area Frekuensi (Simetris!)
-    // 0 - 4   : BASS
-    // 5 - 16  : MID
-    // 17 - 32 : TREBLE
-    // Dan cerminnya...
-    
     int32_t gain;
 
     for(int i = 0; i < FFT_SIZE; i++) {
         // Normalisasi index untuk simetri (mirroring)
-        // Jika i > 32 (setengah N), lihat cerminnya
         int idx_checked = (i > FFT_SIZE/2) ? (FFT_SIZE - i) : i;
 
         if (idx_checked <= 4) {
-            // --- BASS AREA ---
-            gain = 2048; // Boost 2.0x
+            gain = 2048; // BASS: Boost 2.0x
         } 
         else if (idx_checked <= 16) {
-            // --- MID AREA ---
-            gain = 512;  // Cut 0.5x
+            gain = 512;  // MID: Cut 0.5x
         } 
         else {
-            // --- TREBLE AREA ---
-            gain = 256;  // Cut 0.25x
+            gain = 256;  // TREBLE: Cut 0.25x
         }
 
-        // Apply Gain
+        // Apply Gain (Otomatis ditangani oleh "mshift" di riscv.md karena kita tidak mengubah GCC optimization)
         chunk_real[i] = (chunk_real[i] * gain) >> FIXED_SHIFT;
         chunk_imag[i] = (chunk_imag[i] * gain) >> FIXED_SHIFT;
     }
 
     // 3. IFFT
-    fft_core_accelerated(chunk_real, chunk_imag, 1);
+    fft_core(chunk_real, chunk_imag, 1);
 }
 
 int main() {
@@ -163,8 +144,7 @@ int main() {
             // A. Lakukan Matematika (FFT -> EQ -> IFFT)
             process_math_only(buffer_real, buffer_imag);
             
-            // B. Lakukan Printing DI SINI (Di dalam Main)
-            // Agar pointer output_stream bergerak linear
+            // B. Lakukan Printing
             for (int k = 0; k < FFT_SIZE; k++) {
                 *output_stream++ = buffer_real[k];
             }
