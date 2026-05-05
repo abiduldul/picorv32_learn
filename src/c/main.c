@@ -61,7 +61,6 @@ void fft_core(int32_t *real, int32_t *imag, int inverse) {
                     // tr = (real[pair] * c - imag[pair] * s) >> FIXED_SHIFT;
                     // ti = (real[pair] * s + imag[pair] * c) >> FIXED_SHIFT;
                     
-                    // bload feeds real[pair] and imag[pair] to coprocessor
                     hw_bload(real[pair], imag[pair]);
                     hw_bfly(tr, c, s);
                     hw_bget(ti);
@@ -69,7 +68,6 @@ void fft_core(int32_t *real, int32_t *imag, int inverse) {
                     // tr = (real[pair] * c + imag[pair] * s) >> FIXED_SHIFT;
                     // ti = (imag[pair] * c - real[pair] * s) >> FIXED_SHIFT;
                     
-                    // bfly with -s computes:
                     hw_bload(real[pair], imag[pair]);
                     hw_bfly(tr, c, -s);
                     hw_bget(ti);
