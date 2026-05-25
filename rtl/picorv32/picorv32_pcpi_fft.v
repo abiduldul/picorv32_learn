@@ -7,8 +7,6 @@
 //   bget    opcode=0x2B funct3=2  rd = cached ti
 // =============================================================================
 
-`default_nettype none
-
 module picorv32_pcpi_fft #(
     parameter FIXED_SHIFT = 10
 ) (

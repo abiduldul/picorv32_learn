@@ -1,3 +1,5 @@
+`default_nettype wire
+
 module picorv32_soc (
     input  wire clk,
     input  wire rst_n,

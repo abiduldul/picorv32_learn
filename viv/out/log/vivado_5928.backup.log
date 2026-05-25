@@ -1,0 +1,105 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Fri May 22 09:49:52 2026
+# Process ID         : 5928
+# Current directory  : /home/abid/Github/picorv32_learn
+# Command line       : vivado -mode batch -source viv/tcl/build.tcl -log viv/out/log/vivado.log -journal viv/out/log/vivado.jou
+# Log file           : /home/abid/Github/picorv32_learn/viv/out/log/vivado.log
+# Journal file       : /home/abid/Github/picorv32_learn/viv/out/log/vivado.jou
+# Running On         : abid
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz
+# CPU Frequency      : 1786.753 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 7994 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 12289 MB
+# Available Virtual  : 9186 MB
+#-----------------------------------------------------------
+source viv/tcl/build.tcl
+# source viv/tcl/set_variables.tcl
+## set board_name "zynq7000"
+## set fpga_part "xc7z020clg400-1"
+## set project_name "picorv32"
+## set top_level "picorv32_soc"
+## set top_level_tb "tb_${top_level}.v"
+## set dir_rtl "rtl"
+## set dir_tb "tb"
+## set dir_xdc "viv/xdc"
+## set dir_out "viv/out"
+## set dir_log "viv/out/log"
+## set dir_report "viv/res/report"
+## set dir_bitstream "viv/res"
+## set dir_origin [file normalize "."]
+## puts "INFO: dir_origin is  $dir_origin"
+INFO: dir_origin is  /home/abid/Github/picorv32_learn
+## set filename_xdc "${board_name}_${project_name}.xdc"
+## set filename_bitstream "${board_name}_${project_name}.bit"
+# set path_report $dir_origin/$dir_report
+# set path_bitstream $dir_origin/$dir_bitstream
+# set_part $fpga_part
+INFO: [Coretcl 2-1500] The part has been set to 'xc7z020clg400-1' for the current project only. Run set_part -help for more details. To evaluate different speed grades in the current design, use the set_speed_grade command, or use the open_checkpoint -part command to change the part used by an existing checkpoint design.
+# proc get_verilog_files {dir} {
+#     set files {}
+#     foreach f [glob -nocomplain -directory $dir *] {
+#         if {[file isdirectory $f]} {
+#             set files [concat $files [get_verilog_files $f]]
+#         } elseif {[string match *.v $f]} {
+#             lappend files $f
+#         }
+#     }
+#     return $files
+# }
+# set all_verilog_files [get_verilog_files [file join $dir_origin $dir_rtl]]
+# read_verilog $all_verilog_files
+# read_xdc "$dir_origin/$dir_xdc/$filename_xdc"
+# synth_design -top $top_level
+Command: synth_design -top picorv32_soc
+Starting synth_design
+Using part: xc7z020clg400-1
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 6091
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2232.223 ; gain = 484.562 ; free physical = 214 ; free virtual = 7448
+---------------------------------------------------------------------------------
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'clk' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:6]
+ERROR: [Synth 8-9844] non-net port 'clk' cannot be of mode input [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:6]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'resetn' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:6]
+ERROR: [Synth 8-9844] non-net port 'resetn' cannot be of mode input [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:6]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_awvalid' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:10]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_awready' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:11]
+ERROR: [Synth 8-9844] non-net port 'mem_axi_awready' cannot be of mode input [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:11]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_awaddr' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:12]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_awprot' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:13]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_wvalid' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:15]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_wready' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:16]
+ERROR: [Synth 8-9844] non-net port 'mem_axi_wready' cannot be of mode input [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:16]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_wdata' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:17]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_wstrb' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:18]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_bvalid' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:20]
+ERROR: [Synth 8-9844] non-net port 'mem_axi_bvalid' cannot be of mode input [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:20]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_bready' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:21]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_arvalid' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:23]
+ERROR: [Synth 8-6735] net type must be explicitly specified for 'mem_axi_arready' when default_nettype is none [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:24]
+ERROR: [Synth 8-12188] Failed to read verilog '/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v'
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 2314.191 ; gain = 566.531 ; free physical = 151 ; free virtual = 7380
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+INFO: [Common 17-83] Releasing license: Synthesis
+6 Infos, 0 Warnings, 0 Critical Warnings and 21 Errors encountered.
+synth_design failed
+synth_design: Time (s): cpu = 00:00:16 ; elapsed = 00:00:18 . Memory (MB): peak = 2314.199 ; gain = 737.211 ; free physical = 149 ; free virtual = 7387
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1942.796; main = 1589.175; forked = 353.621
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3300.668; main = 2314.195; forked = 986.473
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+INFO: [Common 17-206] Exiting Vivado at Fri May 22 09:50:18 2026...

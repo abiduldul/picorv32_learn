@@ -1,27 +1,27 @@
 #-----------------------------------------------------------
 # Vivado v2025.1 (64-bit)
-# SW Build 6140274 on Thu May 22 00:12:29 MDT 2025
+# SW Build 6140274 on Wed May 21 22:58:25 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Sat Jan 31 14:57:43 2026
-# Process ID         : 19556
-# Current directory  : D:/Abidul_Qohar/Github/picorv32_learn
-# Command line       : vivado.exe -mode batch -source viv/tcl/flash.tcl -log viv/out/log/vivado.log -journal viv/out/log/vivado.jou
-# Log file           : D:/Abidul_Qohar/Github/picorv32_learn/viv/out/log/vivado.log
-# Journal file       : D:/Abidul_Qohar/Github/picorv32_learn\viv/out/log/vivado.jou
-# Running On         : Abid
-# Platform           : Windows Server 2016 or Windows 10
-# Operating System   : 26200
+# Start of session at: Sat May 23 22:52:03 2026
+# Process ID         : 33178
+# Current directory  : /home/abid/Github/picorv32_learn
+# Command line       : vivado -mode batch -source viv/tcl/build.tcl -log viv/out/log/vivado.log -journal viv/out/log/vivado.jou
+# Log file           : /home/abid/Github/picorv32_learn/viv/out/log/vivado.log
+# Journal file       : /home/abid/Github/picorv32_learn/viv/out/log/vivado.jou
+# Running On         : abid
+# Platform           : Ubuntu
+# Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz
-# CPU Frequency      : 2419 MHz
+# CPU Frequency      : 3800.000 MHz
 # CPU Physical cores : 4
 # CPU Logical cores  : 8
-# Host memory        : 8254 MB
-# Swap memory        : 13858 MB
-# Total Virtual      : 22112 MB
-# Available Virtual  : 5956 MB
+# Host memory        : 7994 MB
+# Swap memory        : 17179 MB
+# Total Virtual      : 25174 MB
+# Available Virtual  : 20713 MB
 #-----------------------------------------------------------
-source viv/tcl/flash.tcl
+source viv/tcl/build.tcl
 # source viv/tcl/set_variables.tcl
 ## set board_name "zynq7000"
 ## set fpga_part "xc7z020clg400-1"
@@ -37,33 +37,812 @@ source viv/tcl/flash.tcl
 ## set dir_bitstream "viv/res"
 ## set dir_origin [file normalize "."]
 ## puts "INFO: dir_origin is  $dir_origin"
-INFO: dir_origin is  D:/Abidul_Qohar/Github/picorv32_learn
+INFO: dir_origin is  /home/abid/Github/picorv32_learn
 ## set filename_xdc "${board_name}_${project_name}.xdc"
 ## set filename_bitstream "${board_name}_${project_name}.bit"
-# set path_file_bitstream $dir_origin/$dir_bitstream/$filename_bitstream
-# puts "INFO: path_file_bitstream is  $path_file_bitstream"
-INFO: path_file_bitstream is  D:/Abidul_Qohar/Github/picorv32_learn/viv/res/zynq7000_picorv32.bit
-# open_hw_manager
-open_hw_manager: Time (s): cpu = 00:00:08 ; elapsed = 00:00:05 . Memory (MB): peak = 497.168 ; gain = 211.531
-# connect_hw_server
-INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
-INFO: [Labtools 27-3415] Connecting to cs_server url TCP:localhost:0
-INFO: [Labtools 27-3417] Launching cs_server...
-INFO: [Labtools 27-2221] Launch Output:
+# set path_report $dir_origin/$dir_report
+# set path_bitstream $dir_origin/$dir_bitstream
+# set_part $fpga_part
+INFO: [Coretcl 2-1500] The part has been set to 'xc7z020clg400-1' for the current project only. Run set_part -help for more details. To evaluate different speed grades in the current design, use the set_speed_grade command, or use the open_checkpoint -part command to change the part used by an existing checkpoint design.
+# proc get_verilog_files {dir} {
+#     set files {}
+#     foreach f [glob -nocomplain -directory $dir *] {
+#         if {[file isdirectory $f]} {
+#             set files [concat $files [get_verilog_files $f]]
+#         } elseif {[string match *.v $f]} {
+#             lappend files $f
+#         }
+#     }
+#     return $files
+# }
+# set all_verilog_files [get_verilog_files [file join $dir_origin $dir_rtl]]
+# read_verilog $all_verilog_files
+# read_xdc "$dir_origin/$dir_xdc/$filename_xdc"
+# synth_design -top $top_level
+Command: synth_design -top picorv32_soc
+Starting synth_design
+Using part: xc7z020clg400-1
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 33320
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2142.320 ; gain = 438.828 ; free physical = 212 ; free virtual = 18218
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'picorv32_soc' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:3]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_axi' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:5]
+	Parameter ENABLE_BITREV bound to: 1'b0 
+	Parameter ENABLE_GCD bound to: 1'b0 
+	Parameter ENABLE_FFT bound to: 1'b1 
+	Parameter ENABLE_MUL bound to: 1'b0 
+	Parameter ENABLE_FAST_MUL bound to: 1'b0 
+	Parameter ENABLE_DIV bound to: 1'b1 
+	Parameter STACKADDR bound to: 4096 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32_axi_adapter' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_axi_adapter' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi_adapter.v:5]
+INFO: [Synth 8-6157] synthesizing module 'picorv32' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:62]
+	Parameter ENABLE_COUNTERS bound to: 1'b1 
+	Parameter ENABLE_COUNTERS64 bound to: 1'b1 
+	Parameter ENABLE_REGS_16_31 bound to: 1'b1 
+	Parameter ENABLE_REGS_DUALPORT bound to: 1'b1 
+	Parameter TWO_STAGE_SHIFT bound to: 1'b1 
+	Parameter BARREL_SHIFTER bound to: 1'b0 
+	Parameter TWO_CYCLE_COMPARE bound to: 1'b0 
+	Parameter TWO_CYCLE_ALU bound to: 1'b0 
+	Parameter COMPRESSED_ISA bound to: 1'b0 
+	Parameter CATCH_MISALIGN bound to: 1'b1 
+	Parameter CATCH_ILLINSN bound to: 1'b1 
+	Parameter ENABLE_PCPI bound to: 1'b0 
+	Parameter ENABLE_BITREV bound to: 1'b0 
+	Parameter ENABLE_GCD bound to: 1'b0 
+	Parameter ENABLE_FFT bound to: 1'b1 
+	Parameter ENABLE_MUL bound to: 1'b0 
+	Parameter ENABLE_FAST_MUL bound to: 1'b0 
+	Parameter ENABLE_DIV bound to: 1'b1 
+	Parameter ENABLE_IRQ bound to: 1'b0 
+	Parameter ENABLE_IRQ_QREGS bound to: 1'b1 
+	Parameter ENABLE_IRQ_TIMER bound to: 1'b1 
+	Parameter ENABLE_TRACE bound to: 1'b0 
+	Parameter REGS_INIT_ZERO bound to: 1'b0 
+	Parameter MASKED_IRQ bound to: 0 - type: integer 
+	Parameter LATCHED_IRQ bound to: -1 - type: integer 
+	Parameter PROGADDR_RESET bound to: 0 - type: integer 
+	Parameter PROGADDR_IRQ bound to: 16 - type: integer 
+	Parameter STACKADDR bound to: 4096 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_div' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_div.v:5]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_div.v:30]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_div' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_div.v:5]
+INFO: [Synth 8-6157] synthesizing module 'picorv32_pcpi_fft' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:10]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_pcpi_fft' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:10]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:411]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:411]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:411]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:411]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1360]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1406]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1406]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1589]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1589]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1675]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1675]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1675]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1675]
+WARNING: [Synth 8-151] case item 1'b0 is unreachable [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1675]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:62]
+WARNING: [Synth 8-7071] port 'mem_la_read' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'mem_la_write' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'mem_la_addr' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'mem_la_wdata' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'mem_la_wstrb' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_valid' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_insn' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_rs1' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_rs2' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_wr' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_rd' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_wait' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7071] port 'pcpi_ready' of module 'picorv32' is unconnected for instance 'picorv32_core' [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+WARNING: [Synth 8-7023] instance 'picorv32_core' of module 'picorv32' has 27 connections declared, but only 14 given [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:168]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_axi' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_axi.v:5]
+WARNING: [Synth 8-7071] port 'mem_axi_awprot' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7071] port 'mem_axi_arprot' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7071] port 'irq' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7071] port 'eoi' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7071] port 'trace_valid' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7071] port 'trace_data' of module 'picorv32_axi' is unconnected for instance 'cpu' [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+WARNING: [Synth 8-7023] instance 'cpu' of module 'picorv32_axi' has 24 connections declared, but only 18 given [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:104]
+INFO: [Synth 8-6157] synthesizing module 'axi_rom' [/home/abid/Github/picorv32_learn/rtl/axi_rom.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'axi_rom' (0#1) [/home/abid/Github/picorv32_learn/rtl/axi_rom.v:1]
+INFO: [Synth 8-6157] synthesizing module 'axi_ram' [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:1]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:43]
+INFO: [Synth 8-6155] done synthesizing module 'axi_ram' (0#1) [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:1]
+INFO: [Synth 8-6157] synthesizing module 'axi4_lite_interconnect_m1s3' [/home/abid/Github/picorv32_learn/rtl/axi4_lite_interconnect_m1s3.v:1]
+	Parameter LOW_ADDR0 bound to: 0 - type: integer 
+	Parameter HIGH_ADDR0 bound to: 65535 - type: integer 
+	Parameter LOW_ADDR1 bound to: 268435456 - type: integer 
+	Parameter HIGH_ADDR1 bound to: 268500991 - type: integer 
+	Parameter LOW_ADDR2 bound to: 131072 - type: integer 
+	Parameter HIGH_ADDR2 bound to: 196607 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'axi4_lite_interconnect_m1s3' (0#1) [/home/abid/Github/picorv32_learn/rtl/axi4_lite_interconnect_m1s3.v:1]
+INFO: [Synth 8-6155] done synthesizing module 'picorv32_soc' (0#1) [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:3]
+WARNING: [Synth 8-6014] Unused sequential element pcpi_wr_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_div.v:51]
+WARNING: [Synth 8-6014] Unused sequential element pcpi_ready_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:102]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_firstword_reg_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:484]
+WARNING: [Synth 8-6014] Unused sequential element last_mem_valid_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:485]
+WARNING: [Synth 8-6014] Unused sequential element next_insn_opcode_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:525]
+WARNING: [Synth 8-6014] Unused sequential element mem_la_secondword_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:663]
+WARNING: [Synth 8-6014] Unused sequential element prefetched_high_word_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:664]
+WARNING: [Synth 8-6014] Unused sequential element q_ascii_instr_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:871]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_imm_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:872]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_opcode_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:873]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs1_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:874]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rs2_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:875]
+WARNING: [Synth 8-6014] Unused sequential element q_insn_rd_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:876]
+WARNING: [Synth 8-6014] Unused sequential element dbg_next_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:877]
+WARNING: [Synth 8-6014] Unused sequential element dbg_valid_insn_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:880]
+WARNING: [Synth 8-6014] Unused sequential element cached_ascii_instr_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:885]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_imm_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:886]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_opcode_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:888]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs1_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:891]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rs2_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:892]
+WARNING: [Synth 8-6014] Unused sequential element cached_insn_rd_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:893]
+WARNING: [Synth 8-6014] Unused sequential element dbg_insn_addr_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:897]
+WARNING: [Synth 8-6014] Unused sequential element clear_prefetched_high_word_q_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1385]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rinst_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1498]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_rdata_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1499]
+WARNING: [Synth 8-6014] Unused sequential element set_mem_do_wdata_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1500]
+WARNING: [Synth 8-6014] Unused sequential element alu_out_0_q_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1502]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1505]
+WARNING: [Synth 8-6014] Unused sequential element alu_wait_2_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1506]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1509]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1510]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs1val_valid_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1511]
+WARNING: [Synth 8-6014] Unused sequential element dbg_rs2val_valid_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1512]
+WARNING: [Synth 8-6014] Unused sequential element next_irq_pending_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1532]
+WARNING: [Synth 8-6014] Unused sequential element decoder_trigger_q_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1539]
+WARNING: [Synth 8-6014] Unused sequential element decoder_pseudo_trigger_q_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1541]
+WARNING: [Synth 8-6014] Unused sequential element latched_trace_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1557]
+WARNING: [Synth 8-6014] Unused sequential element irq_active_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1563]
+WARNING: [Synth 8-6014] Unused sequential element irq_delay_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1564]
+WARNING: [Synth 8-6014] Unused sequential element irq_mask_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1565]
+WARNING: [Synth 8-6014] Unused sequential element irq_state_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1567]
+WARNING: [Synth 8-6014] Unused sequential element timer_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1569]
+WARNING: [Synth 8-6014] Unused sequential element current_pc_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1587]
+WARNING: [Synth 8-6014] Unused sequential element irq_pending_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:2055]
+WARNING: [Synth 8-6014] Unused sequential element trace_valid_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32.v:1544]
+WARNING: [Synth 8-6014] Unused sequential element wr_addr_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:46]
+WARNING: [Synth 8-6014] Unused sequential element wr_strb_reg was removed.  [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:47]
+WARNING: [Synth 8-3848] Net LED in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:8]
+WARNING: [Synth 8-3848] Net s0_AWREADY in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:41]
+WARNING: [Synth 8-3848] Net s0_WREADY in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:44]
+WARNING: [Synth 8-3848] Net s0_BVALID in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:48]
+WARNING: [Synth 8-3848] Net s0_BRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:49]
+WARNING: [Synth 8-3848] Net s0_RRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:55]
+WARNING: [Synth 8-3848] Net s1_BRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:68]
+WARNING: [Synth 8-3848] Net s1_RRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:74]
+WARNING: [Synth 8-3848] Net s2_BRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:86]
+WARNING: [Synth 8-3848] Net s2_RRESP in module/entity picorv32_soc does not have driver. [/home/abid/Github/picorv32_learn/rtl/picorv32_soc.v:92]
+WARNING: [Synth 8-7129] Port axi_awaddr[31] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[30] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[29] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[28] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[27] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[26] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[25] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[24] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[23] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[22] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[21] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[20] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[19] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[18] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[17] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[16] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[15] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[14] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[1] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_awaddr[0] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[31] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[30] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[29] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[28] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[27] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[26] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[25] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[24] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[23] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[22] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[21] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[20] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[19] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[18] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[17] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[16] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[15] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[14] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[1] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[0] in module axi_ram is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[31] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[30] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[29] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[28] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[27] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[26] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[25] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[24] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[23] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[22] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[21] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[20] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[19] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[18] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[17] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[16] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[15] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[14] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[1] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port axi_araddr[0] in module axi_rom is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[31] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[30] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[29] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[28] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[27] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[26] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[25] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[24] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[23] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[22] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[21] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[20] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[19] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[18] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[17] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[16] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[15] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[11] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[10] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[9] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[8] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[7] in module picorv32_pcpi_fft is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[24] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[23] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[22] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[21] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[20] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[19] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[18] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[17] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[16] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[15] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[11] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[10] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[9] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[8] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_insn[7] in module picorv32_pcpi_div is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_wr in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[31] in module picorv32 is either unconnected or has no load
+WARNING: [Synth 8-7129] Port pcpi_rd[30] in module picorv32 is either unconnected or has no load
+INFO: [Common 17-14] Message 'Synth 8-7129' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2663.688 ; gain = 960.195 ; free physical = 274 ; free virtual = 17855
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2663.688 ; gain = 960.195 ; free physical = 283 ; free virtual = 17860
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2663.688 ; gain = 960.195 ; free physical = 283 ; free virtual = 17860
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 2663.688 ; gain = 0.000 ; free physical = 369 ; free virtual = 17937
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc]
+CRITICAL WARNING: [Netlist 29-177] Cannot set property 'BITSTREAM.CONFIG.CONFIGRATE' because the property does not exist. [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc:17]
+Resolution: Create this property using create_property command before setting it.
+CRITICAL WARNING: [Netlist 29-154] Cannot set property 'CONFIG_MODE' because incorrect value 'SPIx4' specified. Expecting type 'enum' with possible values of 'B_SCAN'. [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc:18]
+Resolution: Please check the value of the property and set to a correct value.
+Finished Parsing XDC File [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc]
+INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/picorv32_soc_propImpl.xdc].
+Resolution: To avoid this warning, move constraints listed in [.Xil/picorv32_soc_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2894.426 ; gain = 0.000 ; free physical = 217 ; free virtual = 17813
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.33 ; elapsed = 00:00:00.33 . Memory (MB): peak = 2906.348 ; gain = 0.000 ; free physical = 204 ; free virtual = 17807
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:51 ; elapsed = 00:00:45 . Memory (MB): peak = 2906.348 ; gain = 1202.855 ; free physical = 168 ; free virtual = 15786
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:51 ; elapsed = 00:00:45 . Memory (MB): peak = 2910.434 ; gain = 1206.941 ; free physical = 168 ; free virtual = 15786
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:51 ; elapsed = 00:00:45 . Memory (MB): peak = 2910.434 ; gain = 1206.941 ; free physical = 166 ; free virtual = 15786
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'mem_state_reg' in module 'picorv32'
+WARNING: [Synth 8-3936] Found unconnected internal register 'rd_addr_reg' and it is trimmed from '12' to '10' bits. [/home/abid/Github/picorv32_learn/rtl/axi_ram.v:54]
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'axi_ram'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'axi4_lite_interconnect_m1s3'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 iSTATE2 |                               00 |                               00
+                 iSTATE0 |                               01 |                               10
+                  iSTATE |                               10 |                               01
+                 iSTATE1 |                               11 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'mem_state_reg' using encoding 'sequential' in module 'picorv32'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                              010 |                               00
+                 iSTATE1 |                              100 |                               01
+                 iSTATE0 |                              001 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'axi_ram'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                               00 |                              000
+                   WRITE |                               01 |                              001
+                    READ |                               10 |                              010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'axi4_lite_interconnect_m1s3'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:01:27 ; elapsed = 00:01:27 . Memory (MB): peak = 2918.438 ; gain = 1214.945 ; free physical = 158 ; free virtual = 12164
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   63 Bit       Adders := 1     
+	   2 Input   42 Bit       Adders := 1     
+	   3 Input   42 Bit       Adders := 1     
+	   2 Input   32 Bit       Adders := 11    
+	   3 Input   32 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input     32 Bit         XORs := 1     
++---Registers : 
+	               63 Bit    Registers := 1     
+	               36 Bit    Registers := 1     
+	               32 Bit    Registers := 2101  
+	               11 Bit    Registers := 1     
+	               10 Bit    Registers := 2     
+	                8 Bit    Registers := 1     
+	                5 Bit    Registers := 5     
+	                4 Bit    Registers := 2     
+	                3 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 94    
++---Multipliers : 
+	              32x32  Multipliers := 5     
++---ROMs : 
+	                    ROMs := 1     
++---Muxes : 
+	   2 Input   63 Bit        Muxes := 2     
+	   2 Input   32 Bit        Muxes := 4072  
+	   3 Input   32 Bit        Muxes := 2051  
+	   5 Input   32 Bit        Muxes := 1     
+	   6 Input   32 Bit        Muxes := 1     
+	   4 Input   32 Bit        Muxes := 6     
+	   2 Input   16 Bit        Muxes := 1     
+	   2 Input    8 Bit        Muxes := 8194  
+	   4 Input    8 Bit        Muxes := 2     
+	   5 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 4     
+	   4 Input    4 Bit        Muxes := 1     
+	   3 Input    4 Bit        Muxes := 1     
+	   3 Input    3 Bit        Muxes := 2     
+	   2 Input    3 Bit        Muxes := 6     
+	   4 Input    2 Bit        Muxes := 5     
+	   2 Input    2 Bit        Muxes := 13    
+	   6 Input    2 Bit        Muxes := 1     
+	   3 Input    2 Bit        Muxes := 1     
+	   3 Input    1 Bit        Muxes := 8     
+	   2 Input    1 Bit        Muxes := 80    
+	   4 Input    1 Bit        Muxes := 18    
+	   7 Input    1 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-12192] Not enough pipeline registers after wide multiplier. Pipeline registers present is 0. Recommended levels of pipeline registers is 4. [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:69]
+INFO: [Synth 8-12192] Not enough pipeline registers after wide multiplier. Pipeline registers present is 0. Recommended levels of pipeline registers is 4. [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:68]
+INFO: [Synth 8-12192] Not enough pipeline registers after wide multiplier. Pipeline registers present is 0. Recommended levels of pipeline registers is 4. [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:67]
+INFO: [Synth 8-12192] Not enough pipeline registers after wide multiplier. Pipeline registers present is 0. Recommended levels of pipeline registers is 4. [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:66]
+INFO: [Synth 8-12192] Not enough pipeline registers after wide multiplier. Pipeline registers present is 0. Recommended levels of pipeline registers is 4. [/home/abid/Github/picorv32_learn/rtl/picorv32/picorv32_pcpi_fft.v:82]
+DSP Report: Generating DSP i_s, operation Mode is: A*B.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: Generating DSP i_s, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: Generating DSP i_s, operation Mode is: A2*B.
+DSP Report: register i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: Generating DSP i_s, operation Mode is: (PCIN>>17)+A2*B.
+DSP Report: register i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: operator i_s is absorbed into DSP i_s.
+DSP Report: Generating DSP r_c, operation Mode is: A*B.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: Generating DSP r_c, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: Generating DSP r_c, operation Mode is: A2*B.
+DSP Report: register r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: Generating DSP r_c, operation Mode is: (PCIN>>17)+A2*B.
+DSP Report: register r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: operator r_c is absorbed into DSP r_c.
+DSP Report: Generating DSP i_c, operation Mode is: A*B.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: Generating DSP i_c, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: Generating DSP i_c, operation Mode is: A2*B.
+DSP Report: register i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: Generating DSP i_c, operation Mode is: (PCIN>>17)+A2*B.
+DSP Report: register i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: operator i_c is absorbed into DSP i_c.
+DSP Report: Generating DSP r_s, operation Mode is: A*B.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: Generating DSP r_s, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: Generating DSP r_s, operation Mode is: A2*B.
+DSP Report: register r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: Generating DSP r_s, operation Mode is: (PCIN>>17)+A2*B.
+DSP Report: register r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: operator r_s is absorbed into DSP r_s.
+DSP Report: Generating DSP mshift_full, operation Mode is: A*B.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: Generating DSP mshift_full, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: Generating DSP mshift_full, operation Mode is: A*B.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: Generating DSP mshift_full, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+DSP Report: operator mshift_full is absorbed into DSP mshift_full.
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /pcpi_fft/pcpi_wait_reg)
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_rs2_reg[0]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[11]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_rs2_reg[1]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[1]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_rs2_reg[2]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[2]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_rs2_reg[3]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[3]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_rs2_reg[4]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[4]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[31]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[20]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[30]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[20]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\decoded_imm_j_reg[0] )
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[15]' (FDE) to 'cpu/picorv32_core/decoded_rs1_reg[0]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[16]' (FDE) to 'cpu/picorv32_core/decoded_rs1_reg[1]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[17]' (FDE) to 'cpu/picorv32_core/decoded_rs1_reg[2]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[18]' (FDE) to 'cpu/picorv32_core/decoded_rs1_reg[3]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[19]' (FDE) to 'cpu/picorv32_core/decoded_rs1_reg[4]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[20]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[21]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[21]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[22]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[22]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[23]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[23]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[24]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[24]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[25]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[25]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[26]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[26]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[27]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[27]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[28]'
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/decoded_imm_j_reg[28]' (FDE) to 'cpu/picorv32_core/decoded_imm_j_reg[29]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /do_waitirq_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpu_state_reg[4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /instr_retirq_reg)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /instr_getq_reg)
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/mem_addr_reg[1]' (FDE) to 'cpu/picorv32_core/mem_addr_reg[0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\mem_addr_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /latched_compr_reg)
+INFO: [Synth 8-3886] merging instance 'cpu/picorv32_core/reg_next_pc_reg[0]' (FDRE) to 'cpu/picorv32_core/reg_pc_reg[0]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][2] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][3] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][4] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][5] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][6] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][7] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][9] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][10] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][11] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][12] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][13] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][14] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][15] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][16] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][17] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][18] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][19] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][20] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][21] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][22] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][23] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][24] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][25] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][26] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][31] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][27] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][28] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][29] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][30] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\cpu/picorv32_core /\cpuregs_reg[0][1] )
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:12 ; elapsed = 00:02:15 . Memory (MB): peak = 2930.363 ; gain = 1226.871 ; free physical = 144 ; free virtual = 10539
+---------------------------------------------------------------------------------
+ Sort Area is picorv32_soc__GC0 i_c_a : 0 0 : 3119 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_c_a : 0 1 : 2671 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_s_e : 0 0 : 3119 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_s_e : 0 1 : 2671 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_c_c : 0 0 : 3119 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_c_c : 0 1 : 2671 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_s_6 : 0 0 : 3119 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_s_6 : 0 1 : 2671 5790 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 mshift_full_3 : 0 0 : 3101 5754 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 mshift_full_3 : 0 1 : 2653 5754 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_c_b : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_c_b : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_s_f : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 i_s_f : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 mshift_full_0 : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 mshift_full_0 : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_c_d : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_c_d : 0 1 : 2485 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_s_9 : 0 0 : 2634 5119 : Used 1 time 0
+ Sort Area is picorv32_soc__GC0 r_s_9 : 0 1 : 2485 5119 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name       | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|picorv32_pcpi_fft | A*B             | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A2*B            | 18     | 18     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A2*B | 18     | 15     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A*B             | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A2*B            | 18     | 18     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A2*B | 18     | 15     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A*B             | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A2*B            | 18     | 18     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A2*B | 18     | 15     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A*B             | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A2*B            | 18     | 18     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A2*B | 18     | 15     | -      | -      | 48     | 1    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A*B             | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A*B             | 18     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | (PCIN>>17)+A*B  | 15     | 15     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:05:05 ; elapsed = 00:02:43 . Memory (MB): peak = 2930.363 ; gain = 1226.871 ; free physical = 693 ; free virtual = 11799
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:05:15 ; elapsed = 00:02:53 . Memory (MB): peak = 2952.004 ; gain = 1248.512 ; free physical = 489 ; free virtual = 11730
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance i_0/rom/read_addr_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance i_0/rom/read_addr_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:05:26 ; elapsed = 00:03:14 . Memory (MB): peak = 3067.258 ; gain = 1363.766 ; free physical = 153 ; free virtual = 10275
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance rom/read_addr_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance rom/read_addr_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:05:54 ; elapsed = 00:03:46 . Memory (MB): peak = 3067.258 ; gain = 1363.766 ; free physical = 159 ; free virtual = 10317
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:05:54 ; elapsed = 00:03:46 . Memory (MB): peak = 3067.258 ; gain = 1363.766 ; free physical = 131 ; free virtual = 10342
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:05:57 ; elapsed = 00:03:49 . Memory (MB): peak = 3067.258 ; gain = 1363.766 ; free physical = 154 ; free virtual = 10274
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:05:59 ; elapsed = 00:03:52 . Memory (MB): peak = 3067.258 ; gain = 1363.766 ; free physical = 214 ; free virtual = 10274
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:06:01 ; elapsed = 00:03:54 . Memory (MB): peak = 3074.242 ; gain = 1370.750 ; free physical = 257 ; free virtual = 10270
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:06:02 ; elapsed = 00:03:54 . Memory (MB): peak = 3074.242 ; gain = 1370.750 ; free physical = 255 ; free virtual = 10276
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name       | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|picorv32_pcpi_fft | A'*B'          | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 30     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 30     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 30     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 30     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 17     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | PCIN>>17+A'*B' | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
+|picorv32_pcpi_fft | A'*B'          | 17     | 18     | -      | -      | 48     | 1    | 1    | -    | -    | -     | 0    | 0    | 
++------------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
 
 
-******** Xilinx cs_server v2025.1.0
-  ****** Build date   : May 14 2025-02:15:27
-    **** Build number : 2025.1.1747163727
-      ** Copyright 2017-2022 Xilinx, Inc. All Rights Reserved.
-      ** Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
 
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |BUFG     |     1|
+|2     |CARRY4   |   185|
+|3     |DSP48E1  |    19|
+|4     |LUT1     |   134|
+|5     |LUT2     |   826|
+|6     |LUT3     |  1781|
+|7     |LUT4     |  1947|
+|8     |LUT5     |  7248|
+|9     |LUT6     | 21019|
+|10    |MUXF7    |  8875|
+|11    |MUXF8    |  4370|
+|12    |RAMB36E1 |     2|
+|14    |FDCE     |     2|
+|15    |FDPE     |     3|
+|16    |FDRE     | 67529|
+|17    |FDSE     |    29|
+|18    |IBUF     |     2|
+|19    |OBUF     |     1|
+|20    |OBUFT    |     1|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:06:02 ; elapsed = 00:03:55 . Memory (MB): peak = 3074.242 ; gain = 1370.750 ; free physical = 259 ; free virtual = 10275
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 91 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:05:38 ; elapsed = 00:03:44 . Memory (MB): peak = 3078.156 ; gain = 1132.004 ; free physical = 3684 ; free virtual = 16788
+Synthesis Optimization Complete : Time (s): cpu = 00:06:02 ; elapsed = 00:04:00 . Memory (MB): peak = 3078.156 ; gain = 1374.664 ; free physical = 3668 ; free virtual = 16788
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.81 ; elapsed = 00:00:00.81 . Memory (MB): peak = 3078.156 ; gain = 0.000 ; free physical = 3762 ; free virtual = 16864
+INFO: [Netlist 29-17] Analyzing 13451 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc]
+CRITICAL WARNING: [Netlist 29-177] Cannot set property 'BITSTREAM.CONFIG.CONFIGRATE' because the property does not exist. [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc:17]
+Resolution: Create this property using create_property command before setting it.
+CRITICAL WARNING: [Netlist 29-154] Cannot set property 'CONFIG_MODE' because incorrect value 'SPIx4' specified. Expecting type 'enum' with possible values of 'B_SCAN'. [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc:18]
+Resolution: Please check the value of the property and set to a correct value.
+Finished Parsing XDC File [/home/abid/Github/picorv32_learn/viv/xdc/zynq7000_picorv32.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 3122.266 ; gain = 0.000 ; free physical = 3685 ; free virtual = 16860
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
 
-
-# current_hw_target
-# open_hw_target
-INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210241727074
-# set_property PROGRAM.FILE $path_file_bitstream [current_hw_device]
-# program_hw_devices [current_hw_device]
-INFO: [Labtools 27-3164] End of startup status: HIGH
-INFO: [Common 17-206] Exiting Vivado at Sat Jan 31 14:57:58 2026...
+Synth Design complete | Checksum: c9a0ed6
+INFO: [Common 17-83] Releasing license: Synthesis
+117 Infos, 190 Warnings, 4 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:06:18 ; elapsed = 00:04:18 . Memory (MB): peak = 3122.301 ; gain = 1590.449 ; free physical = 3574 ; free virtual = 16766
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 5504.953; main = 2111.445; forked = 4629.893
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 17386.047; main = 3122.270; forked = 14459.598
+# write_checkpoint -force $dir_out/post_synth.dcp
+INFO: [Timing 38-480] Writing timing data to binary archive.
+Wrote PlaceDB: Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3556 ; free virtual = 16759
+Wrote PulsedLatchDB: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3556 ; free virtual = 16759
+Writing XDEF routing.
+Write ShapeDB Complete: Time (s): cpu = 00:00:00.46 ; elapsed = 00:00:00.12 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3534 ; free virtual = 16743
+Writing XDEF routing logical nets.
+Writing XDEF routing special nets.
+Wrote RouteStorage: Time (s): cpu = 00:00:00.69 ; elapsed = 00:00:00.19 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3520 ; free virtual = 16731
+Wrote Netlist Cache: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3520 ; free virtual = 16731
+Wrote Device Cache: Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3520 ; free virtual = 16732
+Write Physdb Complete: Time (s): cpu = 00:00:00.78 ; elapsed = 00:00:00.22 . Memory (MB): peak = 3154.281 ; gain = 0.000 ; free physical = 3520 ; free virtual = 16732
+INFO: [Common 17-1381] The checkpoint '/home/abid/Github/picorv32_learn/viv/out/post_synth.dcp' has been generated.
+write_checkpoint: Time (s): cpu = 00:00:10 ; elapsed = 00:00:08 . Memory (MB): peak = 3154.281 ; gain = 31.980 ; free physical = 3046 ; free virtual = 16614
+# report_timing_summary -file $path_report/timing_syn.rpt
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+report_timing_summary: Time (s): cpu = 00:00:40 ; elapsed = 00:00:14 . Memory (MB): peak = 3289.094 ; gain = 134.812 ; free physical = 2832 ; free virtual = 16766
+INFO: [Common 17-206] Exiting Vivado at Sat May 23 22:56:51 2026...
