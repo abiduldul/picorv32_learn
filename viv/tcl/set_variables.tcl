@@ -4,6 +4,9 @@
 set board_name "zynq7000"
 set fpga_part "xc7z020clg400-1"
 
+# set board_name "nexys7"
+# set fpga_part "xc7a100tcsg324"
+
 # set project
 set project_name "picorv32"
 set top_level "picorv32_soc"

@@ -7,6 +7,7 @@ XXD			= xxd
 MACH		= rv32i
 MABI		= ilp32
 CFLAGS		= -O0 -g -c --specs=nosys.specs -Wall -march=$(MACH) -mabi=$(MABI) -mmshift
+# CFLAGS		= -O0 -g -c --specs=nosys.specs -Wall -march=$(MACH) -mabi=$(MABI)
 LDFLAGS	= -O0 -g -nostartfiles --specs=nosys.specs -march=$(MACH) -mabi=$(MABI) -Wl,-T,sections.lds,-Map,program.map
 
 all: clean main.o boot.o ram_init.o program.elf program.elf.objdump program.elf.lst program.bin program.hex size program.v
