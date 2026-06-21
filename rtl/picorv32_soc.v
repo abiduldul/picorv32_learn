@@ -4,8 +4,11 @@ module picorv32_soc (
     input  wire clk,
     input  wire rst_n,
     output wire trap,
-    // input  [15:0]                   sw,
-    output [15:0] LED
+    input  [15:0] sw,
+    output [15:0] LED,
+    output [6:0]  seg,     
+    output        dp,      
+    output [7:0]  an       
 );
     
     // always @(posedge clk) begin
@@ -17,7 +20,8 @@ module picorv32_soc (
     //     end
     // end
     
-    
+    wire [31:0] seg_val;
+
     /* master 0 signals */
     wire                m0_AWVALID, m0_AWREADY;
     wire    [31:0]      m0_AWADDR;
@@ -114,6 +118,15 @@ module picorv32_soc (
         .mem_axi_rvalid (m0_RVALID), .mem_axi_rready (m0_RREADY), .mem_axi_rdata (m0_RDATA)
     );
 
+    seven_seg seg7 (
+        .clk(clk), 
+        .rst_n(rst_n),
+        .value(seg_val),
+        .seg(seg), 
+        .dp(dp), 
+        .an(an)
+    );
+
     /* slave 0: ROM */
    axi_rom rom (
        // .clk          (clk_slow),
@@ -167,7 +180,7 @@ module picorv32_soc (
          /* read */
          .s_ARVALID(s2_ARVALID), .s_ARPROT(3'b0), .s_ARADDR(s2_ARADDR), .s_ARREADY(s2_ARREADY),
          .s_RREADY(s2_RREADY), .s_RVALID(s2_RVALID), .s_RRESP(s2_RRESP), .s_RDATA(s2_RDATA),
-         //.iSW(sw),
+         .iSW(sw),
          .oLED(LED)
      );
 

@@ -1,5 +1,10 @@
-+====================+===================+==========================================+
-| Launch Setup Clock | Launch Hold Clock | Pin                                      |
-+====================+===================+==========================================+
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/decoded_imm_j_reg[9]/D |
-+--------------------+-------------------+------------------------------------------+
++====================+===================+======================================================+
+| Launch Setup Clock | Launch Hold Clock | Pin                                                  |
++====================+===================+======================================================+
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_beq_bne_blt_bge_bltu_bgeu_reg/D |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[13]/D                  |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[17]/D                  |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[27]/D                  |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/decoded_rd_reg[1]/D                |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/decoded_rd_reg[3]/D                |
++--------------------+-------------------+------------------------------------------------------+

@@ -7,6 +7,7 @@ module axi4_lite_gpio_wrapper #(
 
     input       [15:0]                  iSW,
     output      [15:0]                  oLED,
+    output      [31:0]                  oSEG,
     
     /* write address channel */
     input                               s_AWVALID,
@@ -131,7 +132,8 @@ module axi4_lite_gpio_wrapper #(
         .w_DATA(write_data_reg), .r_DATA(read_data),
         .w_ADDR(write_addr_reg), .r_ADDR(read_addr),
         .iSW(iSW),
-        .oLED(oLED)
+        .oLED(oLED),
+        .oSEG(oSEG)
     );
 
 endmodule

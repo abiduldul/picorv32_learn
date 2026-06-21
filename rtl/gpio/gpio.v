@@ -10,15 +10,20 @@ module gpio #(
     
     /* interfaces */
     input       [15:0]               iSW,
-    output reg  [15:0]               oLED
+    output reg  [15:0]               oLED,
+    output reg  [31:0]               oSEG
+
 );
 
     always @(posedge iCLK or negedge iRST) begin
         if (!iRST) begin
             r_DATA <= 32'h00000000;
+            oLED   <= 16'h0;
+            oSEG   <= 32'h0;  
         end else begin
             if (w_REQ) begin
-                oLED             <= w_DATA;
+                if (w_ADDR[2]) oSEG <= w_DATA;   
+                else           oLED <= w_DATA;
             end else if (r_REQ) begin
                 r_DATA          <= iSW;
             end

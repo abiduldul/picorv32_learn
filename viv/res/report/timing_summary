@@ -1,7 +1,7 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2025.1 (lin64) Build 6140274 Wed May 21 22:58:25 MDT 2025
-| Date         : Sun Jun 21 01:55:13 2026
+| Date         : Sun Jun 21 13:00:44 2026
 | Host         : abid running 64-bit Ubuntu 24.04.4 LTS
 | Command      : report_timing_summary -file /home/abid/Github/picorv32_learn/viv/res/report/timing_summary
 | Design       : picorv32_soc
@@ -53,8 +53,8 @@ Table of Contents
 2. checking constant_clock (0)
 3. checking pulse_width_clock (0)
 4. checking unconstrained_internal_endpoints (0)
-5. checking no_input_delay (1)
-6. checking no_output_delay (17)
+5. checking no_input_delay (17)
+6. checking no_output_delay (25)
 7. checking multiple_clock (0)
 8. checking generated_clocks (0)
 9. checking loops (0)
@@ -84,16 +84,16 @@ Table of Contents
  There are 0 pins that are not constrained for maximum delay due to constant clock.
 
 
-5. checking no_input_delay (1)
-------------------------------
- There is 1 input port with no input delay specified. (HIGH)
+5. checking no_input_delay (17)
+-------------------------------
+ There are 17 input ports with no input delay specified. (HIGH)
 
  There are 0 input ports with no input delay but user has a false path constraint.
 
 
-6. checking no_output_delay (17)
+6. checking no_output_delay (25)
 --------------------------------
- There are 17 ports with no output delay specified. (HIGH)
+ There are 25 ports with no output delay specified. (HIGH)
 
  There are 0 ports with no output delay but user has a false path constraint
 
@@ -138,7 +138,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-     -0.736      -14.857                     47                71050        0.074        0.000                      0                71050        4.500        0.000                       0                 35066  
+     -0.636      -14.049                     83                79815        0.054        0.000                      0                79815        4.500        0.000                       0                 35377  
 
 
 Timing constraints are not met.
@@ -161,7 +161,7 @@ sys_clk_pin  {0.000 5.000}      10.000          100.000
 
 Clock             WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----             -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-sys_clk_pin        -0.736      -14.857                     47                71050        0.074        0.000                      0                71050        4.500        0.000                       0                 35066  
+sys_clk_pin        -0.636      -14.049                     83                79815        0.054        0.000                      0                79815        4.500        0.000                       0                 35377  
 
 
 ------------------------------------------------------------------------------------------------
@@ -192,28 +192,28 @@ Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing 
 From Clock:  sys_clk_pin
   To Clock:  sys_clk_pin
 
-Setup :           47  Failing Endpoints,  Worst Slack       -0.736ns,  Total Violation      -14.857ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.074ns,  Total Violation        0.000ns
+Setup :           83  Failing Endpoints,  Worst Slack       -0.636ns,  Total Violation      -14.049ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.054ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        4.500ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (VIOLATED) :        -0.736ns  (required time - arrival time)
-  Source:                 ram/rd_addr_reg[0]_replica_42/C
+Slack (VIOLATED) :        -0.636ns  (required time - arrival time)
+  Source:                 ram/rd_addr_reg[0]_replica_43/C
                             (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            cpu/picorv32_core/reg_out_reg[24]/D
+  Destination:            cpu/picorv32_core/reg_out_reg[2]/D
                             (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             sys_clk_pin
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            10.000ns  (sys_clk_pin rise@10.000ns - sys_clk_pin rise@0.000ns)
-  Data Path Delay:        10.635ns  (logic 2.880ns (27.079%)  route 7.755ns (72.921%))
-  Logic Levels:           12  (LUT2=1 LUT4=1 LUT5=2 LUT6=5 MUXF7=3)
-  Clock Path Skew:        -0.097ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    4.938ns = ( 14.938 - 10.000 ) 
-    Source Clock Delay      (SCD):    5.214ns
-    Clock Pessimism Removal (CPR):    0.180ns
+  Data Path Delay:        10.533ns  (logic 2.108ns (20.012%)  route 8.425ns (79.988%))
+  Logic Levels:           9  (LUT5=1 LUT6=6 MUXF7=2)
+  Clock Path Skew:        -0.098ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.937ns = ( 14.937 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.222ns
+    Clock Pessimism Removal (CPR):    0.187ns
   Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Total Input Jitter      (TIJ):    0.000ns
@@ -229,36 +229,30 @@ Slack (VIOLATED) :        -0.736ns  (required time - arrival time)
     E3                   IBUF (Prop_ibuf_I_O)         1.482     1.482 r  clk_IBUF_inst/O
                          net (fo=1, routed)           2.025     3.506    clk_IBUF
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     3.602 r  clk_IBUF_BUFG_inst/O
-                         net (fo=35067, routed)       1.612     5.214    ram/clk_IBUF_BUFG
-    SLICE_X66Y114        FDRE                                         r  ram/rd_addr_reg[0]_replica_42/C
+                         net (fo=35376, routed)       1.619     5.222    ram/clk_IBUF_BUFG
+    SLICE_X67Y78         FDRE                                         r  ram/rd_addr_reg[0]_replica_43/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y114        FDRE (Prop_fdre_C_Q)         0.518     5.732 r  ram/rd_addr_reg[0]_replica_42/Q
-                         net (fo=171, routed)         1.210     6.943    ram/rd_addr_reg_n_0_[0]_repN_42
-    SLICE_X64Y107        LUT6 (Prop_lut6_I4_O)        0.124     7.067 r  ram/mem_rdata_q[31]_i_309/O
-                         net (fo=1, routed)           0.000     7.067    ram/mem_rdata_q[31]_i_309_n_0
-    SLICE_X64Y107        MUXF7 (Prop_muxf7_I1_O)      0.245     7.312 r  ram/mem_rdata_q_reg[31]_i_138/O
-                         net (fo=1, routed)           1.033     8.344    ram/mem_rdata_q_reg[31]_i_138_n_0
-    SLICE_X59Y108        LUT6 (Prop_lut6_I0_O)        0.298     8.642 r  ram/mem_rdata_q[31]_i_51/O
-                         net (fo=1, routed)           1.190     9.832    ram/mem_rdata_q[31]_i_51_n_0
-    SLICE_X50Y93         LUT5 (Prop_lut5_I0_O)        0.124     9.956 r  ram/mem_rdata_q[31]_i_19/O
-                         net (fo=1, routed)           0.000     9.956    ram/mem_rdata_q[31]_i_19_n_0
-    SLICE_X50Y93         MUXF7 (Prop_muxf7_I0_O)      0.241    10.197 r  ram/mem_rdata_q_reg[31]_i_8/O
-                         net (fo=1, routed)           1.342    11.539    ram/mem_rdata_q_reg[31]_i_8_n_0
-    SLICE_X41Y112        LUT5 (Prop_lut5_I4_O)        0.298    11.837 r  ram/mem_rdata_q[31]_i_4/O
-                         net (fo=1, routed)           0.000    11.837    ram/mem_rdata_q[31]_i_4_n_0
-    SLICE_X41Y112        MUXF7 (Prop_muxf7_I0_O)      0.238    12.075 r  ram/mem_rdata_q_reg[31]_i_3/O
-                         net (fo=3, routed)           0.884    12.959    interconnect/s1_RDATA__0[23]
-    SLICE_X40Y99         LUT4 (Prop_lut4_I3_O)        0.298    13.257 r  interconnect/mem_rdata_q[31]_i_2/O
-                         net (fo=4, routed)           0.841    14.098    interconnect/read_addr_reg_1_0[29]
-    SLICE_X42Y98         LUT6 (Prop_lut6_I2_O)        0.124    14.222 f  interconnect/reg_out[7]_i_8/O
-                         net (fo=1, routed)           0.162    14.384    interconnect/reg_out[7]_i_8_n_0
-    SLICE_X42Y98         LUT6 (Prop_lut6_I0_O)        0.124    14.508 r  interconnect/reg_out[7]_i_4/O
-                         net (fo=7, routed)           0.221    14.729    cpu/picorv32_core/reg_out_reg[7]_0
-    SLICE_X42Y98         LUT2 (Prop_lut2_I1_O)        0.124    14.853 f  cpu/picorv32_core/reg_out[31]_i_5/O
-                         net (fo=19, routed)          0.873    15.726    cpu/picorv32_core/pcpi_mul/reg_out_reg[29]_2
-    SLICE_X43Y96         LUT6 (Prop_lut6_I5_O)        0.124    15.850 r  cpu/picorv32_core/pcpi_mul/reg_out[24]_i_1/O
-                         net (fo=1, routed)           0.000    15.850    cpu/picorv32_core/reg_out[24]
-    SLICE_X43Y96         FDRE                                         r  cpu/picorv32_core/reg_out_reg[24]/D
+    SLICE_X67Y78         FDRE (Prop_fdre_C_Q)         0.456     5.678 r  ram/rd_addr_reg[0]_replica_43/Q
+                         net (fo=148, routed)         1.490     7.168    ram/rd_addr_reg_n_0_[0]_repN_43
+    SLICE_X61Y80         LUT6 (Prop_lut6_I4_O)        0.124     7.292 r  ram/mem_rdata_q[10]_i_195/O
+                         net (fo=1, routed)           0.000     7.292    ram/mem_rdata_q[10]_i_195_n_0
+    SLICE_X61Y80         MUXF7 (Prop_muxf7_I1_O)      0.217     7.509 r  ram/mem_rdata_q_reg[10]_i_77/O
+                         net (fo=1, routed)           0.886     8.395    ram/mem_rdata_q_reg[10]_i_77_n_0
+    SLICE_X63Y80         LUT6 (Prop_lut6_I1_O)        0.299     8.694 r  ram/mem_rdata_q[10]_i_27/O
+                         net (fo=1, routed)           1.902    10.597    ram/mem_rdata_q[10]_i_27_n_0
+    SLICE_X40Y46         LUT5 (Prop_lut5_I4_O)        0.124    10.721 r  ram/mem_rdata_q[10]_i_11/O
+                         net (fo=2, routed)           0.000    10.721    ram/mem_rdata_q[10]_i_11_n_0
+    SLICE_X40Y46         MUXF7 (Prop_muxf7_I1_O)      0.217    10.938 r  ram/reg_out_reg[10]_i_12/O
+                         net (fo=1, routed)           2.222    13.160    ram/reg_out_reg[10]_i_12_n_0
+    SLICE_X38Y88         LUT6 (Prop_lut6_I0_O)        0.299    13.459 r  ram/reg_out[10]_i_11/O
+                         net (fo=1, routed)           0.454    13.913    ram/reg_out[10]_i_11_n_0
+    SLICE_X39Y89         LUT6 (Prop_lut6_I0_O)        0.124    14.037 r  ram/reg_out[10]_i_9/O
+                         net (fo=2, routed)           0.611    14.648    interconnect/reg_out_reg[2]_1
+    SLICE_X35Y86         LUT6 (Prop_lut6_I2_O)        0.124    14.772 r  interconnect/reg_out[2]_i_5/O
+                         net (fo=1, routed)           0.859    15.631    cpu/picorv32_core/pcpi_mul/reg_out_reg[2]_1
+    SLICE_X40Y87         LUT6 (Prop_lut6_I3_O)        0.124    15.755 r  cpu/picorv32_core/pcpi_mul/reg_out[2]_i_1/O
+                         net (fo=1, routed)           0.000    15.755    cpu/picorv32_core/reg_out[2]
+    SLICE_X40Y87         FDRE                                         r  cpu/picorv32_core/reg_out_reg[2]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock sys_clk_pin rise edge)
@@ -268,16 +262,16 @@ Slack (VIOLATED) :        -0.736ns  (required time - arrival time)
     E3                   IBUF (Prop_ibuf_I_O)         1.411    11.411 r  clk_IBUF_inst/O
                          net (fo=1, routed)           1.920    13.331    clk_IBUF
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091    13.422 r  clk_IBUF_BUFG_inst/O
-                         net (fo=35067, routed)       1.515    14.938    cpu/picorv32_core/clk_IBUF_BUFG
-    SLICE_X43Y96         FDRE                                         r  cpu/picorv32_core/reg_out_reg[24]/C
-                         clock pessimism              0.180    15.118    
-                         clock uncertainty           -0.035    15.082    
-    SLICE_X43Y96         FDRE (Setup_fdre_C_D)        0.031    15.113    cpu/picorv32_core/reg_out_reg[24]
+                         net (fo=35376, routed)       1.514    14.937    cpu/picorv32_core/clk_IBUF_BUFG
+    SLICE_X40Y87         FDRE                                         r  cpu/picorv32_core/reg_out_reg[2]/C
+                         clock pessimism              0.187    15.124    
+                         clock uncertainty           -0.035    15.088    
+    SLICE_X40Y87         FDRE (Setup_fdre_C_D)        0.031    15.119    cpu/picorv32_core/reg_out_reg[2]
   -------------------------------------------------------------------
-                         required time                         15.113    
-                         arrival time                         -15.850    
+                         required time                         15.119    
+                         arrival time                         -15.755    
   -------------------------------------------------------------------
-                         slack                                 -0.736    
+                         slack                                 -0.636    
 
 
 
@@ -285,20 +279,20 @@ Slack (VIOLATED) :        -0.736ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.074ns  (arrival time - required time)
-  Source:                 cpu/picorv32_core/mem_rdata_q_reg[18]/C
+Slack (MET) :             0.054ns  (arrival time - required time)
+  Source:                 cpu/picorv32_core/mem_wdata_reg[22]_rep/C
                             (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@5.000ns period=10.000ns})
-  Destination:            cpu/picorv32_core/decoded_rs1_reg[3]/D
+  Destination:            ram/mem_reg[429][22]/D
                             (rising edge-triggered cell FDRE clocked by sys_clk_pin  {rise@0.000ns fall@5.000ns period=10.000ns})
   Path Group:             sys_clk_pin
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (sys_clk_pin rise@0.000ns - sys_clk_pin rise@0.000ns)
-  Data Path Delay:        0.446ns  (logic 0.186ns (41.692%)  route 0.260ns (58.308%))
-  Logic Levels:           1  (LUT6=1)
-  Clock Path Skew:        0.280ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    2.007ns
-    Source Clock Delay      (SCD):    1.481ns
-    Clock Pessimism Removal (CPR):    0.245ns
+  Data Path Delay:        0.384ns  (logic 0.141ns (36.676%)  route 0.243ns (63.324%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.258ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.987ns
+    Source Clock Delay      (SCD):    1.478ns
+    Clock Pessimism Removal (CPR):    0.250ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -309,14 +303,12 @@ Slack (MET) :             0.074ns  (arrival time - required time)
     E3                   IBUF (Prop_ibuf_I_O)         0.250     0.250 r  clk_IBUF_inst/O
                          net (fo=1, routed)           0.644     0.894    clk_IBUF
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     0.920 r  clk_IBUF_BUFG_inst/O
-                         net (fo=35067, routed)       0.562     1.481    cpu/picorv32_core/clk_IBUF_BUFG
-    SLICE_X39Y103        FDRE                                         r  cpu/picorv32_core/mem_rdata_q_reg[18]/C
+                         net (fo=35376, routed)       0.559     1.478    cpu/picorv32_core/clk_IBUF_BUFG
+    SLICE_X52Y83         FDRE                                         r  cpu/picorv32_core/mem_wdata_reg[22]_rep/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X39Y103        FDRE (Prop_fdre_C_Q)         0.141     1.622 r  cpu/picorv32_core/mem_rdata_q_reg[18]/Q
-                         net (fo=3, routed)           0.260     1.883    ram/decoded_rs1_reg[3]
-    SLICE_X35Y99         LUT6 (Prop_lut6_I0_O)        0.045     1.928 r  ram/decoded_rs1[3]_i_1/O
-                         net (fo=1, routed)           0.000     1.928    cpu/picorv32_core/decoded_rs1_reg[3]_0
-    SLICE_X35Y99         FDRE                                         r  cpu/picorv32_core/decoded_rs1_reg[3]/D
+    SLICE_X52Y83         FDRE (Prop_fdre_C_Q)         0.141     1.619 r  cpu/picorv32_core/mem_wdata_reg[22]_rep/Q
+                         net (fo=100, routed)         0.243     1.863    ram/mem_reg[503][22]_0
+    SLICE_X51Y77         FDRE                                         r  ram/mem_reg[429][22]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock sys_clk_pin rise edge)
@@ -326,15 +318,15 @@ Slack (MET) :             0.074ns  (arrival time - required time)
     E3                   IBUF (Prop_ibuf_I_O)         0.438     0.438 r  clk_IBUF_inst/O
                          net (fo=1, routed)           0.699     1.136    clk_IBUF
     BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     1.165 r  clk_IBUF_BUFG_inst/O
-                         net (fo=35067, routed)       0.842     2.007    cpu/picorv32_core/clk_IBUF_BUFG
-    SLICE_X35Y99         FDRE                                         r  cpu/picorv32_core/decoded_rs1_reg[3]/C
-                         clock pessimism             -0.245     1.761    
-    SLICE_X35Y99         FDRE (Hold_fdre_C_D)         0.092     1.853    cpu/picorv32_core/decoded_rs1_reg[3]
+                         net (fo=35376, routed)       0.822     1.987    ram/clk_IBUF_BUFG
+    SLICE_X51Y77         FDRE                                         r  ram/mem_reg[429][22]/C
+                         clock pessimism             -0.250     1.736    
+    SLICE_X51Y77         FDRE (Hold_fdre_C_D)         0.072     1.808    ram/mem_reg[429][22]
   -------------------------------------------------------------------
-                         required time                         -1.853    
-                         arrival time                           1.928    
+                         required time                         -1.808    
+                         arrival time                           1.863    
   -------------------------------------------------------------------
-                         slack                                  0.074    
+                         slack                                  0.054    
 
 
 
@@ -348,9 +340,9 @@ Period(ns):         10.000
 Sources:            { clk }
 
 Check Type        Corner  Lib Pin      Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
-Min Period        n/a     DSP48E1/CLK  n/a            3.884         10.000      6.116      DSP48_X0Y13   cpu/picorv32_core/pcpi_mul/rd_reg/CLK
-Low Pulse Width   Slow    FDRE/C       n/a            0.500         5.000       4.500      SLICE_X45Y60  cpu/axi_adapter/ack_arvalid_reg/C
-High Pulse Width  Slow    FDRE/C       n/a            0.500         5.000       4.500      SLICE_X45Y60  cpu/axi_adapter/ack_arvalid_reg/C
+Min Period        n/a     DSP48E1/CLK  n/a            3.884         10.000      6.116      DSP48_X0Y29   cpu/picorv32_core/pcpi_mul/rd_reg/CLK
+Low Pulse Width   Slow    FDRE/C       n/a            0.500         5.000       4.500      SLICE_X40Y89  cpu/axi_adapter/ack_arvalid_reg/C
+High Pulse Width  Slow    FDRE/C       n/a            0.500         5.000       4.500      SLICE_X40Y89  cpu/axi_adapter/ack_arvalid_reg/C
 
 
 
