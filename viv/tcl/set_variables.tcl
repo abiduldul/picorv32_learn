@@ -1,11 +1,11 @@
 # set board_name "basys3"
 # set fpga_part "xc7a35tcpg236-1"
 
-set board_name "zynq7000"
-set fpga_part "xc7z020clg400-1"
+# set board_name "zynq7000"
+# set fpga_part "xc7z020clg400-1"
 
-# set board_name "nexys7"
-# set fpga_part "xc7a100tcsg324"
+set board_name "nexysa7"
+set fpga_part "xc7a100tcsg324-1"
 
 # set project
 set project_name "picorv32"

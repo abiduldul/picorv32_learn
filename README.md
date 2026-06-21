@@ -6,6 +6,3 @@ How to use
 Ganti board FPGA :
 1. Buka viv/tcl/set_variables.tcl
 2. Ganti board_name dan fpga_part sesuai dengan board FPGA yang digunakan
-
-Reset boart Zynq Z-Lite --> active low
-Reset boart Zynq Z-Lite --> active high
