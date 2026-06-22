@@ -1,6 +1,6 @@
+For flashing --> type "make flash" in root directory  
+
 After flashing, don't forget to reset the board first in C12  
-
-
 
 Konfigurasi untuk Demo :
 1. sw0 dan sw1 untuk animasi led
