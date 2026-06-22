@@ -1,8 +1,15 @@
-How to use
-1. Buka terminal WSL dan ketik command 'make all' di src/c untuk clean inisialisasi program sebelumnya dan convert main.c to program.hex dan replace initial begin di axi_rom.v sesuai program main.c terbaru
-2. ketik 'make clean' di src/c atau di picorv32_learn folder untuk membersihkan ulang file-file yang tidak digunakan dalam folder
-3. ketik 'make sim' untuk mensimulasikan rtl berdasarkan testbench di folder tb
+Konfigurasi untuk Demo :
+1. sw0 dan sw1 untuk animasi led
+    00 --> ping-pong full 16 bit
+    01 --> simple blink
+    10 --> ping pong 8 bit, kanan kiri
+    11 --> ping pong 8 bit, mirroring
 
-Ganti board FPGA :
-1. Buka viv/tcl/set_variables.tcl
-2. Ganti board_name dan fpga_part sesuai dengan board FPGA yang digunakan
+2. sw2 dan sw3 untuk 7 segment
+    00 --> N/A
+    01 --> N/A
+    10 --> counter 0 - 9999
+    11 --> counter all bit 0000 - 9999
+
+3. sw15 untuk switch ke program2 -- membaca switch dan menampilkan di 7 segment
+    sw0 - sw14 sebagai input biner, kemudian ditampilkan di led 15 bit dan 7 segment
