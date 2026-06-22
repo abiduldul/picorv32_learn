@@ -1,10 +1,12 @@
-+====================+===================+======================================================+
-| Launch Setup Clock | Launch Hold Clock | Pin                                                  |
-+====================+===================+======================================================+
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_beq_bne_blt_bge_bltu_bgeu_reg/D |
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[13]/D                  |
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[17]/D                  |
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/reg_out_reg[27]/D                  |
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/decoded_rd_reg[1]/D                |
-| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/decoded_rd_reg[3]/D                |
-+--------------------+-------------------+------------------------------------------------------+
++====================+===================+=============================================+
+| Launch Setup Clock | Launch Hold Clock | Pin                                         |
++====================+===================+=============================================+
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/instr_lui_reg/D           |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/instr_auipc_reg/D         |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_sb_sh_sw_reg/D         |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/instr_jal_reg/D           |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_lb_lh_lw_lbu_lhu_reg/D |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_alu_reg_reg_reg/D      |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/is_alu_reg_imm_reg/D      |
+| sys_clk_pin        | sys_clk_pin       | cpu/picorv32_core/mem_rdata_q_reg[5]/D      |
++--------------------+-------------------+---------------------------------------------+

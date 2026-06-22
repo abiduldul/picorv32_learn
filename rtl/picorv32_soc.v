@@ -181,7 +181,8 @@ module picorv32_soc (
          .s_ARVALID(s2_ARVALID), .s_ARPROT(3'b0), .s_ARADDR(s2_ARADDR), .s_ARREADY(s2_ARREADY),
          .s_RREADY(s2_RREADY), .s_RVALID(s2_RVALID), .s_RRESP(s2_RRESP), .s_RDATA(s2_RDATA),
          .iSW(sw),
-         .oLED(LED)
+         .oLED(LED),
+         .oSEG(seg_val)
      );
 
     axi4_lite_interconnect_m1s3 #(

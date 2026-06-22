@@ -3,8 +3,8 @@
 # SW Build 6140274 on Wed May 21 22:58:25 MDT 2025
 # IP Build 6138677 on Thu May 22 03:10:11 MDT 2025
 # SharedData Build 6139179 on Tue May 20 17:58:58 MDT 2025
-# Start of session at: Sun Jun 21 13:03:31 2026
-# Process ID         : 53876
+# Start of session at: Mon Jun 22 10:31:00 2026
+# Process ID         : 6220
 # Current directory  : /home/abid/Github/picorv32_learn
 # Command line       : vivado -mode batch -source viv/tcl/flash.tcl -log viv/out/log/vivado.log -journal viv/out/log/vivado.jou
 # Log file           : /home/abid/Github/picorv32_learn/viv/out/log/vivado.log
@@ -13,13 +13,13 @@
 # Platform           : Ubuntu
 # Operating System   : Ubuntu 24.04.4 LTS
 # Processor Detail   : 11th Gen Intel(R) Core(TM) i5-1135G7 @ 2.40GHz
-# CPU Frequency      : 399.847 MHz
+# CPU Frequency      : 1484.371 MHz
 # CPU Physical cores : 4
 # CPU Logical cores  : 8
 # Host memory        : 7994 MB
 # Swap memory        : 34359 MB
 # Total Virtual      : 42354 MB
-# Available Virtual  : 34475 MB
+# Available Virtual  : 38995 MB
 #-----------------------------------------------------------
 source viv/tcl/flash.tcl
 # source viv/tcl/set_variables.tcl
@@ -73,4 +73,4 @@ INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/
 # set_property PROGRAM.FILE $path_file_bitstream [current_hw_device]
 # program_hw_devices [current_hw_device]
 INFO: [Labtools 27-3164] End of startup status: HIGH
-INFO: [Common 17-206] Exiting Vivado at Sun Jun 21 13:03:47 2026...
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 22 10:31:16 2026...

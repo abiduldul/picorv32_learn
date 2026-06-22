@@ -5,4 +5,5 @@ src/c/program*
 .Xil
 .vscode
 
-viv/out/log/*
+viv/out/log/*.jou
+viv/out/log/*.log
