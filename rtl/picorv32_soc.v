@@ -92,6 +92,24 @@ module picorv32_soc (
     wire    [1:0]       s2_RRESP;
     wire    [31:0]      s2_RDATA;
 
+    /* slave 3 signals: Butterworth filter */
+    wire                s3_AWVALID, s3_AWREADY;
+    wire    [31:0]      s3_AWADDR;
+
+    wire                s3_WVALID, s3_WREADY;
+    wire    [3:0]       s3_WSTRB;
+    wire    [31:0]      s3_WDATA;
+
+    wire                s3_BREADY, s3_BVALID;
+    wire    [1:0]       s3_BRESP;
+
+    wire                s3_ARVALID, s3_ARREADY;
+    wire    [31:0]      s3_ARADDR;
+
+    wire                s3_RREADY, s3_RVALID;
+    wire    [1:0]       s3_RRESP;
+    wire    [31:0]      s3_RDATA;
+
     /* master */
     picorv32_axi #(
         .STACKADDR(32'h00001000),
@@ -171,11 +189,28 @@ module picorv32_soc (
     //      .oLED(LED)
     //  );
 
-    axi4_lite_interconnect_m1s3 #(
+   /* slave 3: Butterworth biquad filter */
+   axi4_lite_filter_wrapper #(
+       .ADDR_WIDTH(32), .DATA_WIDTH(32)
+   ) filt (
+       .iCLK(clk), .iRST(rst_n),
+
+       /* write */
+       .s_AWVALID(s3_AWVALID), .s_AWPROT(3'b0), .s_AWADDR(s3_AWADDR), .s_AWREADY(s3_AWREADY),
+       .s_WVALID(s3_WVALID), .s_WDATA(s3_WDATA), .s_WSTRB(s3_WSTRB), .s_WREADY(s3_WREADY),
+       .s_BREADY(s3_BREADY), .s_BVALID(s3_BVALID), .s_BRESP(s3_BRESP),
+
+       /* read */
+       .s_ARVALID(s3_ARVALID), .s_ARPROT(3'b0), .s_ARADDR(s3_ARADDR), .s_ARREADY(s3_ARREADY),
+       .s_RREADY(s3_RREADY), .s_RVALID(s3_RVALID), .s_RRESP(s3_RRESP), .s_RDATA(s3_RDATA)
+   );
+
+    axi4_lite_interconnect_m1s4 #(
         .LOW_ADDR0(32'h0000_0000), .HIGH_ADDR0(32'h0000_FFFF),
         .LOW_ADDR1(32'h1000_0000), .HIGH_ADDR1(32'h1000_FFFF),
-        .LOW_ADDR2(32'h0002_0000), .HIGH_ADDR2(32'h0002_FFFF)
-    ) interconnect (
+        .LOW_ADDR2(32'h0002_0000), .HIGH_ADDR2(32'h0002_FFFF),
+        .LOW_ADDR3(32'h0003_0000), .HIGH_ADDR3(32'h0003_FFFF)
+    ) interconnect_inst (
         .iCLK(clk), .iRST(rst_n),
         
         /* master 0 signals */
@@ -204,7 +239,14 @@ module picorv32_soc (
         .s2_WREADY(s2_WREADY), .s2_WVALID(s2_WVALID), .s2_WSTRB(s2_WSTRB), .s2_WDATA(s2_WDATA),
         .s2_BVALID(s2_BVALID), .s2_BRESP(s2_BRESP), .s2_BREADY(s2_BREADY),
         .s2_ARREADY(s2_ARREADY), .s2_ARVALID(s2_ARVALID), .s2_ARADDR(s2_ARADDR), 
-        .s2_RVALID(s2_RVALID), .s2_RRESP(s2_RRESP), .s2_RDATA(s2_RDATA), .s2_RREADY(s2_RREADY)
+        .s2_RVALID(s2_RVALID), .s2_RRESP(s2_RRESP), .s2_RDATA(s2_RDATA), .s2_RREADY(s2_RREADY),
+
+        /* slave 3 signals */
+        .s3_AWREADY(s3_AWREADY), .s3_AWVALID(s3_AWVALID), .s3_AWADDR(s3_AWADDR),
+        .s3_WREADY(s3_WREADY), .s3_WVALID(s3_WVALID), .s3_WSTRB(s3_WSTRB), .s3_WDATA(s3_WDATA),
+        .s3_BVALID(s3_BVALID), .s3_BRESP(s3_BRESP), .s3_BREADY(s3_BREADY),
+        .s3_ARREADY(s3_ARREADY), .s3_ARVALID(s3_ARVALID), .s3_ARADDR(s3_ARADDR), 
+        .s3_RVALID(s3_RVALID), .s3_RRESP(s3_RRESP), .s3_RDATA(s3_RDATA), .s3_RREADY(s3_RREADY)
     );
     
     // assign LED = m0_RDATA[7:0];
