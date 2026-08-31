@@ -1,18 +1,3 @@
-/*
- * main_filter.c
- *
- * Streams a two-tone test signal through the AXI4-Lite Butterworth peripheral
- * and leaves the result in ram_output (0x0002_0000) where it can be read back
- * with a debugger or dumped from a Vivado ILA.
- *
- * Memory map:
- *   0x0000_0000  ROM       program + .rodata (test_signal, coefficient tables)
- *   0x1000_0000  RAM       .data / .bss / stack -- only 4 KB, keep it small
- *   0x0002_0000  ram_output  results land here
- *   0x0003_0000  filter    peripheral registers
- *
- * Build:  make -f makefile.filter
- */
 #include <stdint.h>
 #include "filter.h"
 #include "test_signal.h"
@@ -77,7 +62,9 @@ int main(void)
 
     out_mem[HDR_MAGIC]  = 0xF1170000u | (uint32_t)FILT_DEFAULT;
 
-    /* 6. Done.  Spin rather than returning -- there is no OS to return to. */
+    /* 6. Done.  ebreak trips `trap`, which tb_picorv32_soc.v watches for to
+     *    know when to dump ram_output -- same convention as eq_custom_instr. */
+    asm volatile ("ebreak");
     for (;;) { }
 
     return 0;

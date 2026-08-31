@@ -12,16 +12,19 @@
 //   0x04  STATUS    R    bit0 = result ready, bit1 = coefficients written
 //   0x08  DATA_IN   W    push one sample; THIS WRITE IS THE `valid` PULSE
 //   0x0C  DATA_OUT  R    filtered sample, sign-extended to 32 bits
+
 //   0x10  S1_B0     W  \
 //   0x14  S1_B1     W   |
 //   0x18  S1_B2     W   |  stage 1 coefficients, Q2.14, signed 16-bit
 //   0x1C  S1_A1     W   |
 //   0x20  S1_A2     W  /
+
 //   0x24  S2_B0     W  \
 //   0x28  S2_B1     W   |
 //   0x2C  S2_B2     W   |  stage 2 coefficients
 //   0x30  S2_A1     W   |
 //   0x34  S2_A2     W  /
+
 //   0x38  ID        R    0xF1170001, for a cheap "is the bus alive" check
 //
 // Reset defaults to a pass-through (H(z) = 1) in both stages, so the filter

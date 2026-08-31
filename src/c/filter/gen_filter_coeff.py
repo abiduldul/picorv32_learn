@@ -17,7 +17,7 @@ FS = 8000
 Q = 14
 SCALE = 1 << Q
 N_STAGE = 2          # hardware has exactly two cascaded biquads
-IMPULSE_LEN = 64     # length of the golden reference vectors
+# IMPULSE_LEN = 64     # length of the golden reference vectors
 LATENCY = N_STAGE + 1  # samples of pure delay through the cascade
 
 PRESETS = [
@@ -152,8 +152,8 @@ def float_ref(x, stages):
 
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
-    golden_dir = os.path.join(here, "golden")
-    os.makedirs(golden_dir, exist_ok=True)
+    # golden_dir = os.path.join(here, "golden")
+    # os.makedirs(golden_dir, exist_ok=True)
 
     designs = []
     print(f"Designing Butterworth presets at fs = {FS} Hz, Q2.{Q}\n")
@@ -209,25 +209,25 @@ def main():
 
     # ---- golden vectors for the RTL testbench ---------------------------
     # two-tone stimulus, shared by every preset
-    try:
-        with open(os.path.join(golden_dir, "test_signal_in.txt")) as f:
-            stim = [int(v) for v in f.read().split()]
-    except FileNotFoundError:
-        stim = None
+    # try:
+    #     with open(os.path.join(golden_dir, "test_signal_in.txt")) as f:
+    #         stim = [int(v) for v in f.read().split()]
+    # except FileNotFoundError:
+    #     stim = None
 
-    impulse = [16384] + [0] * (IMPULSE_LEN - 1)
-    for p, stages, _ in designs:
-        ref = cascade_hw(impulse, stages)
-        with open(os.path.join(golden_dir, f"{p['name']}.txt"), "w") as f:
-            for v in ref:
-                f.write(f"{v}\n")
-        with open(os.path.join(golden_dir, f"{p['name']}_coeff.txt"), "w") as f:
-            for (b0, b1, b2, a1, a2) in stages:
-                f.write(f"{b0} {b1} {b2} {a1} {a2}\n")
-        if stim is not None:
-            with open(os.path.join(golden_dir, f"{p['name']}_tone.txt"), "w") as f:
-                for v in cascade_hw(stim, stages):
-                    f.write(f"{v}\n")
+    # impulse = [16384] + [0] * (IMPULSE_LEN - 1)
+    # for p, stages, _ in designs:
+    #     ref = cascade_hw(impulse, stages)
+    #     with open(os.path.join(golden_dir, f"{p['name']}.txt"), "w") as f:
+    #         for v in ref:
+    #             f.write(f"{v}\n")
+    #     with open(os.path.join(golden_dir, f"{p['name']}_coeff.txt"), "w") as f:
+    #         for (b0, b1, b2, a1, a2) in stages:
+    #             f.write(f"{b0} {b1} {b2} {a1} {a2}\n")
+    #     if stim is not None:
+    #         with open(os.path.join(golden_dir, f"{p['name']}_tone.txt"), "w") as f:
+    #             for v in cascade_hw(stim, stages):
+    #                 f.write(f"{v}\n")
 
     # ---- readable reference ---------------------------------------------
     lines = [f"Butterworth coefficients, fs = {FS} Hz, format Q2.{Q} (divide by {SCALE})", ""]

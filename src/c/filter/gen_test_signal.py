@@ -9,6 +9,7 @@ result obvious even by eye in a memory dump.
 Run:  python3 gen_test_signal.py
 """
 import math
+import os
 
 FS      = 8000
 N       = 256
@@ -48,4 +49,13 @@ lines.append("#endif /* TEST_SIGNAL_H */")
 with open("test_signal.h", "w") as f:
     f.write("\n".join(lines) + "\n")
 
-print(f"wrote test_signal.h: {N} samples, peak {max(abs(v) for v in vals)}")
+# The same stimulus as a plain decimal list, for the Verilog testbenches.
+# gen_filter_coeff.py reads this to produce golden/<preset>_tone.txt, so this
+# script must run BEFORE it.
+os.makedirs("golden", exist_ok=True)
+with open(os.path.join("golden", "test_signal_in.txt"), "w") as f:
+    for v in vals:
+        f.write(f"{v}\n")
+
+print(f"wrote test_signal.h and golden/test_signal_in.txt: "
+      f"{N} samples, peak {max(abs(v) for v in vals)}")
