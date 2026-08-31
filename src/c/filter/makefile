@@ -1,11 +1,3 @@
-##   Build the Butterworth filter demo instead of the FFT demo.
-##
-##   make gen     # regenerate coefficients + test signal
-##   make all     # compile and patch ../../../../rtl/axi_rom.v
-
-## NOTE: plain `=`, not `?=` -- make predefines CC=cc for its builtin rules,
-## so `CC ?= ...` never takes effect and silently builds with the host gcc.
-## Override from the command line if you need to: `make CC=other-gcc`.
 CC          = riscv32-unknown-elf-gcc
 OBJDUMP     = riscv32-unknown-elf-objdump
 OBJCOPY     = riscv32-unknown-elf-objcopy
@@ -22,9 +14,6 @@ HEADERS     = filter.h filter_coeff.h test_signal.h
 all: clean $(HEADERS) main.o boot.o ram_init.o program.elf \
      program.elf.objdump program.bin program.hex size program.v
 
-## regenerate the two auto-generated headers
-## order matters: gen_test_signal writes the stimulus that
-## gen_filter_coeff needs to build golden/<preset>_tone.txt
 gen:
 	python3 gen_test_signal.py
 	python3 gen_filter_coeff.py
@@ -68,14 +57,6 @@ program.v: program.hex
 
 size: program.elf
 	$(SIZE) $^
-
-## Simulation (iverilog).  Run from this directory: `make sim`.
-##
-##   make sim       # full SoC + this firmware vs. the golden reference (PASS/FAIL)
-##   make sim-dump  # eq_custom_instr-style raw dump: runs to ebreak, writes
-##                  # ../../../output_samples.txt (whole ram_output, 1 word/line)
-##
-## Both rebuild the firmware first, so rtl/axi_rom.v always matches main.c.
 
 ROOT     = ../../..
 IVERILOG = iverilog
